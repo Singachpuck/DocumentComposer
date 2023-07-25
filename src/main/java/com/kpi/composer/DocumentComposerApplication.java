@@ -9,5 +9,4 @@ public class DocumentComposerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DocumentComposerApplication.class, args);
 	}
-
 }

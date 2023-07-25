@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="fragments/fragments.html :: jQuery" />
+    <th:block th:replace="fragments/fragments.html :: util" />
+    <th:block th:replace="fragments/fragments.html :: messages" />
+    <link rel="stylesheet" th:href="@{/css/templates.css}">
+    <title>Templates</title>
+</head>
+<body>
+    <th:block th:replace="fragments/fragments.html :: header"/>
+    <main>
+        <form id="template-upload" action="#" th:action="@{/templates}" method="POST" enctype="multipart/form-data">
+            <label for="template-name">Template name <input id="template-name" type="text" name="name"></label>
+            <label for="template-format">Format
+                <select id="template-format" name="format">
+                    <option th:each="format : ${T(com.kpi.composer.model.SupportedFormats).getTemplateSupportedFormats()}"
+                            th:value="${format.name()}" th:text="${format.getValue()}"></option>
+                </select>
+            </label>
+            <input type="file" name="template" id="template">
+            <button class="save-template" type="submit">Save</button>
+        </form>
+        <button id="refresh-templates">Refresh</button>
+        <section class="templates">
+<!--            <div th:each="template : ${templates}">-->
+<!--                <div th:text="${template.id}"></div>-->
+<!--                <div th:text="${template.name}"></div>-->
+<!--                <div th:text="${T(org.apache.commons.io.FileUtils).byteCountToDisplaySize(template.size)}"></div>-->
+<!--            </div>-->
+        </section>
+    </main>
+    <th:block th:replace="fragments/fragments.html :: footer"/>
+    <script th:src="@{/js/templates.js}"></script>
+</body>
+</html>

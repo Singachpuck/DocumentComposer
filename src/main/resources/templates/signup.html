@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="fragments/fragments.html :: jQuery" />
+    <th:block th:replace="fragments/fragments.html :: util" />
+    <th:block th:replace="fragments/fragments.html :: messages" />
+    <title>Sign Up</title>
+</head>
+<body>
+    <th:block th:replace="fragments/fragments.html :: header"/>
+    <main>
+        <form id="register-user" action="#" method="post">
+            <div>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="text">
+            </div>
+            <div>
+                <button class="sign-up" type="submit">Sign Up</button>
+            </div>
+        </form>
+    </main>
+    <th:block th:replace="fragments/fragments.html :: footer" />
+    <script th:src="@{/js/signup.js}"></script>
+</body>
+</html>

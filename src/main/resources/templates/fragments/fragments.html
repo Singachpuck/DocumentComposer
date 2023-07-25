@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:fragment="jQuery" th:src="@{/js/lib/jquery-3.6.3.min.js}"></script>
+    <script th:fragment="messages" th:src="@{/js/messages.js}"></script>
+    <script th:fragment="util" th:src="@{/js/util.js}"></script>
+    <title>Fragments</title>
+</head>
+<body>
+    <header class="header" th:fragment="header">
+        Header
+    </header>
+
+    <footer class="footer" th:fragment="footer">
+        Footer
+    </footer>
+</body>
+</html>

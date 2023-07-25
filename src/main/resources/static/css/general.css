@@ -1,0 +1,31 @@
+:root {
+    --main-1: #FFCBC9;
+    --main-bg: #fff;
+}
+
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.alert {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.alert-error {
+    border: 1px solid #f00;
+    color: #f00;
+    background-color: var(--main-1);
+}
+
+.alert-success {
+    border: 1px solid green;
+    color: green;
+    background-color: #AFEBA5;
+}
+
+.message {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
