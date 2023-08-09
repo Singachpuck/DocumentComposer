@@ -1,15 +1,17 @@
-package com.kpi.composer.service.compose.parse.template;
+package com.kpi.composer.service.compose.parse;
 
 import com.kpi.composer.exception.ExpressionParseException;
 import com.kpi.composer.service.compose.Operators;
-import com.kpi.composer.service.compose.parse.template.token.*;
+import com.kpi.composer.service.compose.parse.token.LiteralToken;
+import com.kpi.composer.service.compose.parse.token.OperatorToken;
+import com.kpi.composer.service.compose.parse.token.Token;
+import com.kpi.composer.service.compose.parse.token.VariableToken;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.SerializationUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 

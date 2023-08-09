@@ -1,4 +1,4 @@
-package com.kpi.composer.service.compose.parse.template;
+package com.kpi.composer.service.compose.parse;
 
 import com.kpi.composer.exception.ExpressionParseException;
 import com.kpi.composer.exception.UnknownTokenTypeException;
@@ -6,11 +6,8 @@ import com.kpi.composer.exception.UnsupportedLiteralType;
 import com.kpi.composer.service.compose.Operators;
 import com.kpi.composer.service.compose.evaluate.BPTEvaluator;
 import com.kpi.composer.service.compose.evaluate.Evaluator;
-import com.kpi.composer.service.compose.evaluate.Variable;
 import com.kpi.composer.service.compose.evaluate.VariablePool;
-import com.kpi.composer.service.compose.parse.template.token.*;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kpi.composer.service.compose.parse.token.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,14 +16,7 @@ import java.util.List;
 @Component
 public class ExpressionParser {
 
-    private final VariablePool variablePool;
-
-    @Autowired
-    public ExpressionParser(VariablePool variablePool) {
-        this.variablePool = variablePool;
-    }
-
-    public Object parse(String expression) {
+    public Object parse(String expression, VariablePool variablePool) {
         final BinaryParseTree parseTree = this.buildParseTree(this.extractTokens(expression));
         final Evaluator<BinaryParseTree> evaluator = new BPTEvaluator(variablePool);
         return evaluator.evaluate(parseTree);

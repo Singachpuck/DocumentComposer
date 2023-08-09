@@ -15,3 +15,16 @@ function convertRegisterFormToPayload(formData) {
 function getLastPathSegment() {
     return window.location.pathname.split("/").pop();
 }
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+        const base64String = reader.result
+            .replace('data:', '')
+            .replace(/^.+,/, '');
+
+        resolve(base64String);
+    };
+    reader.onerror = reject;
+});

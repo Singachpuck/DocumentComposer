@@ -1,11 +1,9 @@
 package com.kpi.composer.service;
 
-import com.kpi.composer.dto.FileDto;
 import com.kpi.composer.exception.UnsupportedFormatException;
 import com.kpi.composer.model.SupportedFormats;
+import com.kpi.composer.model.dto.FileDto;
 import com.kpi.composer.model.entities.FileEntity;
-import com.kpi.composer.model.entities.Template;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,8 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 public class Uploader {

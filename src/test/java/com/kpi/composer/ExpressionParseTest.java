@@ -3,14 +3,11 @@ package com.kpi.composer;
 import com.kpi.composer.service.compose.evaluate.InMemoryVariablePool;
 import com.kpi.composer.service.compose.evaluate.Variable;
 import com.kpi.composer.service.compose.evaluate.VariablePool;
-import com.kpi.composer.service.compose.parse.template.BinaryParseTree;
-import com.kpi.composer.service.compose.parse.template.ExpressionParser;
-import com.kpi.composer.service.compose.parse.template.token.Token;
+import com.kpi.composer.service.compose.parse.ExpressionParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Collection;
 import java.util.List;
@@ -45,8 +42,8 @@ public class ExpressionParseTest {
     @ParameterizedTest
     @MethodSource("expressions")
     void t1(String expression, Object result) {
-        final ExpressionParser ep = new ExpressionParser(variablePool);
-        Object r = ep.parse(expression);
+        final ExpressionParser ep = new ExpressionParser();
+        Object r = ep.parse(expression, variablePool);
         assertEquals(result, r);
     }
 }

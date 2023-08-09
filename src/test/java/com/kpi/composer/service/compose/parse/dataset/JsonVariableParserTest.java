@@ -2,9 +2,9 @@ package com.kpi.composer.service.compose.parse.dataset;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpi.composer.service.compose.evaluate.Variable;
+import com.kpi.composer.service.compose.parse.JsonVariableParser;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -27,7 +27,7 @@ class JsonVariableParserTest {
     }
 
     private byte[] loadJson() throws URISyntaxException, IOException {
-        URL resource = getClass().getClassLoader().getResource("dataset.json");
+        URL resource = getClass().getClassLoader().getResource("testDataset1.json");
         return Files.readAllBytes(Paths.get(resource.toURI()));
     }
 

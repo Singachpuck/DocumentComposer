@@ -3,7 +3,6 @@ package com.kpi.composer.dao;
 import com.kpi.composer.model.entities.Dataset;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 
 public interface DatasetDao {

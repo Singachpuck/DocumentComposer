@@ -29,23 +29,29 @@ $(document).ready(() => {
 
     refreshTemplatesBtn.click();
 
-    submit.click((e) => {
+    submit.click(async e => {
         e.preventDefault();
+        let templateFile = fileField.prop('files')[0];
 
-        let templateData = fileField.prop('files')[0];
+        let formData = new FormData(templateForm[0]);
+        // formData.append(fileField.attr('name'), templateData);
+        // formData.append(nameField.attr('name'), nameField.val());
+        // formData.append(formatField.attr('name'), formatField.val());
+        formData.append('size', templateFile.size);
 
-        let formData = new FormData();
-        formData.append(fileField.attr('name'), templateData);
-        formData.append(nameField.attr('name'), nameField.val());
-        formData.append(formatField.attr('name'), formatField.val());
-        formData.append('size', templateData.size);
+        let templateObject = {};
+        formData.forEach((value, key) => templateObject[key] = value);
+        templateObject['bytes'] = await toBase64(templateFile);
+        delete templateObject.template;
+        console.log(templateObject);
+        let payload = JSON.stringify(templateObject);
 
         $.ajax({
             url: templateForm.attr("action"),
             method: templateForm.attr("method"),
-            processData: false,
-            contentType: false,
-            data: formData,
+            // processData: false,
+            contentType: 'application/json',
+            data: payload,
             success: () => {
                 displayMessageSuccess('Template created.');
             },

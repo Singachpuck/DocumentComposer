@@ -1,9 +1,6 @@
 package com.kpi.composer.service.compose.evaluate;
 
 import com.kpi.composer.exception.VariableCastException;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.core.convert.ConversionService;
 
 import java.util.Collection;

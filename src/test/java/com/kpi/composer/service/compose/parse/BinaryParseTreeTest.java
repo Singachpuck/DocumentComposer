@@ -1,17 +1,13 @@
 package com.kpi.composer.service.compose.parse;
 
 import com.kpi.composer.service.compose.Operators;
-import com.kpi.composer.service.compose.parse.template.BinaryParseTree;
-import com.kpi.composer.service.compose.parse.template.ExpressionParser;
-import com.kpi.composer.service.compose.parse.template.token.LiteralToken;
-import com.kpi.composer.service.compose.parse.template.token.OperatorToken;
-import com.kpi.composer.service.compose.parse.template.token.Token;
-import com.kpi.composer.service.compose.parse.template.token.VariableToken;
+import com.kpi.composer.service.compose.parse.token.OperatorToken;
+import com.kpi.composer.service.compose.parse.token.Token;
+import com.kpi.composer.service.compose.parse.token.VariableToken;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 import java.util.stream.Stream;

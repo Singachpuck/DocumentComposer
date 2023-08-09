@@ -1,18 +1,15 @@
 package com.kpi.composer.service.mapper;
 
-import com.kpi.composer.dto.DatasetDto;
-import com.kpi.composer.dto.FileDto;
-import com.kpi.composer.dto.TemplateDto;
-import com.kpi.composer.model.SupportedFormats;
+import com.kpi.composer.model.dto.ComposedDocumentDto;
+import com.kpi.composer.model.dto.DatasetDto;
+import com.kpi.composer.model.dto.FileDto;
+import com.kpi.composer.model.dto.TemplateDto;
+import com.kpi.composer.model.entities.ComposedDocument;
 import com.kpi.composer.model.entities.Dataset;
-import com.kpi.composer.model.entities.FileEntity;
 import com.kpi.composer.model.entities.Template;
-import org.mapstruct.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.io.IOException;
 import java.time.ZonedDateTime;
 
 @Mapper(
@@ -21,28 +18,34 @@ import java.time.ZonedDateTime;
 )
 public interface FileMapper {
 
-    FileDto paramsToDto(String name, SupportedFormats format);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "created", expression = "java(ZonedDateTime.now())")
+    @Mapping(target = "bytes", expression = "java(fileDto.getBytes())")
+    @Mapping(target = "size", expression = "java(fileDto.getBytes().length)")
+    Template dtoToTemplate(TemplateDto fileDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "created", expression = "java(ZonedDateTime.now())")
-    @Mapping(target = "size", expression = "java(file.getSize())")
-    Template dtoToTemplate(FileDto fileDto, @Context MultipartFile file);
+    @Mapping(target = "bytes", expression = "java(fileDto.getBytes())")
+    @Mapping(target = "size", expression = "java(fileDto.getBytes().length)")
+    Dataset dtoToDataset(FileDto fileDto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "created", expression = "java(ZonedDateTime.now())")
-    @Mapping(target = "size", expression = "java(file.getSize())")
-    Dataset dtoToDataset(FileDto fileDto, @Context MultipartFile file);
-
+    @Mapping(target = "bytes", ignore = true)
     TemplateDto templateToDto(Template template);
 
+    @Mapping(target = "bytes", ignore = true)
     DatasetDto datasetToDto(Dataset dataset);
 
-    @AfterMapping
-    default void afterDtoToFile(@MappingTarget FileEntity file, @Context MultipartFile multipartFile) {
-        try {
-            file.setBytes(multipartFile.getBytes());
-        } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error processing file.");
-        }
-    }
+    @Mapping(target = "bytes", ignore = true)
+    @Mapping(target = "templateId", source = "template.id")
+    @Mapping(target = "datasetId", source = "dataset.id")
+    ComposedDocumentDto composedToDto(ComposedDocument composedDocument);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "format", ignore = true)
+    @Mapping(target = "name", expression = "java(template.getName() + \" - \" + dataset.getName())")
+    @Mapping(target = "created", expression = "java(ZonedDateTime.now())")
+    @Mapping(target = "bytes", expression = "java(bytes)")
+    @Mapping(target = "size", expression = "java(bytes.length)")
+    ComposedDocument documentFromParams(Template template, Dataset dataset, byte[] bytes);
 }

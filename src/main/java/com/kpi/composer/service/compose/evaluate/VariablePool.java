@@ -1,6 +1,6 @@
 package com.kpi.composer.service.compose.evaluate;
 
-import com.kpi.composer.service.compose.parse.template.token.LiteralToken;
+import com.kpi.composer.service.compose.parse.token.LiteralToken;
 
 import java.util.Collection;
 import java.util.Set;

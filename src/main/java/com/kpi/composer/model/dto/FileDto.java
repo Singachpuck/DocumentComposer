@@ -1,4 +1,4 @@
-package com.kpi.composer.dto;
+package com.kpi.composer.model.dto;
 
 import com.kpi.composer.model.SupportedFormats;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
-public class FileDto {
+public abstract class FileDto {
 
     private Long id;
 
@@ -18,5 +18,7 @@ public class FileDto {
 
     private ZonedDateTime created;
 
-    private long size;
+    private Long size;
+
+    private byte[] bytes;
 }

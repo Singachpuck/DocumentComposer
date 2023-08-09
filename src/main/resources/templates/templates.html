@@ -11,7 +11,7 @@
 <body>
     <th:block th:replace="fragments/fragments.html :: header"/>
     <main>
-        <form id="template-upload" action="#" th:action="@{/templates}" method="POST" enctype="multipart/form-data">
+        <form id="template-upload" action="#" th:action="@{/api/v1/templates}" method="POST">
             <label for="template-name">Template name <input id="template-name" type="text" name="name"></label>
             <label for="template-format">Format
                 <select id="template-format" name="format">
@@ -19,6 +19,10 @@
                             th:value="${format.name()}" th:text="${format.getValue()}"></option>
                 </select>
             </label>
+            Token placeholder: <label>Begin <input type="text" name="beginTokenPlaceholder" value="${"></label>
+                                <label>End <input type="text" name="endTokenPlaceholder" value="}"></label>
+            Escape placeholder: <label>Begin <input type="text" name="beginEscapePlaceholder" value='"'></label>
+                                <label>End <input type="text" name="endEscapePlaceholder" value='"'></label>
             <input type="file" name="template" id="template">
             <button class="save-template" type="submit">Save</button>
         </form>
@@ -32,6 +36,7 @@
         </section>
     </main>
     <th:block th:replace="fragments/fragments.html :: footer"/>
+    <script th:src="@{/js/util.js}"></script>
     <script th:src="@{/js/templates.js}"></script>
 </body>
 </html>

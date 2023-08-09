@@ -1,4 +1,4 @@
-package com.kpi.composer.service.compose.parse.dataset;
+package com.kpi.composer.service.compose.parse;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor

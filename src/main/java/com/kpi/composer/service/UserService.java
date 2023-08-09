@@ -1,7 +1,7 @@
 package com.kpi.composer.service;
 
 import com.kpi.composer.dao.UserDao;
-import com.kpi.composer.dto.UserDto;
+import com.kpi.composer.model.dto.UserDto;
 import com.kpi.composer.model.entities.User;
 import com.kpi.composer.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;

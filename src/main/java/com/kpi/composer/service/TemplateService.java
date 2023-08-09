@@ -1,13 +1,11 @@
 package com.kpi.composer.service;
 
 import com.kpi.composer.dao.TemplateDao;
-import com.kpi.composer.dto.FileDto;
-import com.kpi.composer.dto.TemplateDto;
+import com.kpi.composer.model.dto.TemplateDto;
 import com.kpi.composer.model.entities.Template;
 import com.kpi.composer.service.mapper.FileMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 
@@ -27,15 +25,15 @@ public class TemplateService {
                 .toList();
     }
 
-    public Template create(FileDto templateDto, MultipartFile file) {
-        return templateDao.save(fileMapper.dtoToTemplate(templateDto, file));
+    public Template create(TemplateDto templateDto) {
+        return templateDao.save(fileMapper.dtoToTemplate(templateDto));
     }
 
-    public Template findById(long templateId) {
+    public Template findById(Long templateId) {
         return templateDao.findById(templateId).get();
     }
 
-    public TemplateDto findDtoById(long templateId) {
+    public TemplateDto findDtoById(Long templateId) {
         return fileMapper.templateToDto(this.findById(templateId));
     }
 }

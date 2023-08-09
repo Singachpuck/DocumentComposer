@@ -1,7 +1,6 @@
 package com.kpi.composer.service.converter;
 
 import org.springframework.core.convert.TypeDescriptor;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.GenericConverter;
 
 import java.util.Set;

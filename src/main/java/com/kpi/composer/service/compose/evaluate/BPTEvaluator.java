@@ -2,10 +2,10 @@ package com.kpi.composer.service.compose.evaluate;
 
 import com.kpi.composer.exception.EvaluationException;
 import com.kpi.composer.exception.UnknownTokenTypeException;
-import com.kpi.composer.service.compose.parse.template.BinaryParseTree;
-import com.kpi.composer.service.compose.parse.template.token.LiteralToken;
-import com.kpi.composer.service.compose.parse.template.token.OperatorToken;
-import com.kpi.composer.service.compose.parse.template.token.VariableToken;
+import com.kpi.composer.service.compose.parse.BinaryParseTree;
+import com.kpi.composer.service.compose.parse.token.LiteralToken;
+import com.kpi.composer.service.compose.parse.token.OperatorToken;
+import com.kpi.composer.service.compose.parse.token.VariableToken;
 import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.InvocationTargetException;

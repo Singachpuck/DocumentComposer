@@ -1,4 +1,4 @@
-package com.kpi.composer.service.compose.parse.dataset;
+package com.kpi.composer.service.compose.parse;
 
 import com.kpi.composer.service.compose.evaluate.Variable;
 

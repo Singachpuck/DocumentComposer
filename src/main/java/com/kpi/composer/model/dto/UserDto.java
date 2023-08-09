@@ -1,4 +1,4 @@
-package com.kpi.composer.dto;
+package com.kpi.composer.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

@@ -1,13 +1,11 @@
 package com.kpi.composer.service.mapper;
 
-import com.kpi.composer.dto.UserDto;
 import com.kpi.composer.model.auth.Authorities;
 import com.kpi.composer.model.auth.UserPrincipal;
+import com.kpi.composer.model.dto.UserDto;
 import com.kpi.composer.model.entities.User;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 @Mapper(
         componentModel = "spring",

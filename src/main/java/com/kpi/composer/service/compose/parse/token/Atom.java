@@ -1,4 +1,4 @@
-package com.kpi.composer.service.compose.parse.template.token;
+package com.kpi.composer.service.compose.parse.token;
 
 import lombok.RequiredArgsConstructor;
 

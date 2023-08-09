@@ -1,26 +1,37 @@
 package com.kpi.composer.service.compose;
 
-import com.kpi.composer.exception.UnsupportedFormatException;
-import com.kpi.composer.model.SupportedFormats;
+import com.kpi.composer.model.entities.ComposedDocument;
 import com.kpi.composer.model.entities.Dataset;
-import com.kpi.composer.model.entities.FileEntity;
 import com.kpi.composer.model.entities.Template;
-import com.kpi.composer.service.compose.evaluate.VariablePool;
-import com.kpi.composer.service.compose.parse.dataset.VariableParser;
-import com.kpi.composer.service.compose.parse.template.ExpressionParser;
+import com.kpi.composer.service.compose.extract.ExpressionExtractor;
+import com.kpi.composer.service.compose.parse.ExpressionParser;
+import com.kpi.composer.service.compose.parse.VariableParserFactory;
+import com.kpi.composer.service.mapper.FileMapper;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 
-//@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Composer {
 
-//    protected final Dataset dataset;
-//
-//    protected final Template template;
+    protected final VariableParserFactory variableParserFactory;
 
-    public abstract FileEntity compose(Dataset dataset, Template template);
+    protected final ExpressionParser expressionParser;
 
+    protected final ExpressionExtractor expressionExtractor;
+
+    protected final ConversionService conversionService;
+
+    protected final FileMapper fileMapper;
+
+    public abstract ComposedDocument compose(Dataset dataset, Template template);
+
+//    protected void updateVariablePool(Dataset dataset) {
+//        final Collection<Variable<?>> variables = variableParserFactory
+//                .getVariableParser(dataset)
+//                .parse(dataset.getBytes());
+//        variablePool.replace(variables);
+//    }
 //    static class Builder {
 //
 //        private Dataset datasetInstance;
@@ -42,7 +53,7 @@ public abstract class Composer {
 //                return new DocxComposer(datasetInstance, templateInstance);
 //            }
 //
-//            throw new UnsupportedFormatException("Can not compose " + templateInstance.getFormat().name() + " file");
+//            throw new UnsupportedFormatException("Can not composeAndSave " + templateInstance.getFormat().name() + " file");
 //        }
 //    }
 }

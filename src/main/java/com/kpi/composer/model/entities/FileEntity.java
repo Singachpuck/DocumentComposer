@@ -10,11 +10,11 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @MappedSuperclass
-public class FileEntity {
+public abstract class FileEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     private String name;

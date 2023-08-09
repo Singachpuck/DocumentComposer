@@ -1,7 +1,7 @@
 package com.kpi.composer.model.entities;
 
 import com.kpi.composer.model.SupportedFormats;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 import java.util.Set;
 
