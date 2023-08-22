@@ -26,7 +26,7 @@ public class ExpressionParseTest {
                 new Variable<>("long", 10L),
                 new Variable<>("double", 10D)
         );
-        variablePool = InMemoryVariablePool.load(variables);
+        variablePool = InMemoryVariablePool.load(variables, null);
     }
 
 

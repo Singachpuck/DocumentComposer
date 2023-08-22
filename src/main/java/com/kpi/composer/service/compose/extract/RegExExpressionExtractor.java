@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
+
 public class RegExExpressionExtractor extends ExpressionExtractor {
 
     @Override
@@ -23,14 +23,14 @@ public class RegExExpressionExtractor extends ExpressionExtractor {
         final String begin = tokenPlaceholder.getBegin();
         final String end = tokenPlaceholder.getEnd();
         final String escapeEnd = escapePlaceholder.getEnd();
-        return Pattern.compile(String.format("(?<escapedBegin>%s)?(?<wrapped>%s(?<expression>.+)%s)(?<escapedEnd>%s)?",
+        return Pattern.compile(String.format("(?<escapedBegin>%s)?(?<wrapped>%s(?<expression>[\\w$]+)%s)(?<escapedEnd>%s)?",
                 Pattern.quote(escapeBegin),
                 Pattern.quote(begin),
                 Pattern.quote(end),
                 Pattern.quote(escapeEnd)));
     }
 
-    public class ExpressionIterator implements Iterator<Expression> {
+    public static class ExpressionIterator implements Iterator<Expression> {
 
         private final Placeholder tokenPlaceholder;
 
@@ -38,16 +38,18 @@ public class RegExExpressionExtractor extends ExpressionExtractor {
 
         private final Matcher matcher;
 
+        private boolean isFirst;
+
         public ExpressionIterator(Matcher matcher, Placeholder tokenPlaceholder, Placeholder escapePlaceholder) {
             this.matcher = matcher;
             this.tokenPlaceholder = tokenPlaceholder;
             this.escapePlaceholder = escapePlaceholder;
-            matcher.find();
+            this.isFirst = matcher.find();
         }
 
         @Override
         public boolean hasNext() {
-            return !matcher.hitEnd();
+            return isFirst || !matcher.hitEnd();
         }
 
         @Override
@@ -78,6 +80,7 @@ public class RegExExpressionExtractor extends ExpressionExtractor {
                         tokenPlaceholder,
                         isEscaped);
             }
+            isFirst = false;
             matcher.find();
             return expression;
         }

@@ -6,6 +6,7 @@ import com.kpi.composer.model.entities.Template;
 import com.kpi.composer.service.compose.extract.ExpressionExtractor;
 import com.kpi.composer.service.compose.parse.ExpressionParser;
 import com.kpi.composer.service.compose.parse.VariableParserFactory;
+import com.kpi.composer.service.compose.replace.DocxTextReplacer;
 import com.kpi.composer.service.mapper.FileMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ public abstract class Composer {
     protected final ExpressionExtractor expressionExtractor;
 
     protected final ConversionService conversionService;
+
+    protected final DocxTextReplacer docxTextReplacer;
 
     protected final FileMapper fileMapper;
 

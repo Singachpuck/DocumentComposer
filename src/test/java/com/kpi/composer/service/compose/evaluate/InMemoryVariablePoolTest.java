@@ -23,7 +23,7 @@ class InMemoryVariablePoolTest {
 
     @Test
     void t1() {
-        final InMemoryVariablePool variablePool = InMemoryVariablePool.load(variables);
+        final InMemoryVariablePool variablePool = InMemoryVariablePool.load(variables, null);
 
         Variable<String> string = variablePool.lookup("string", String.class);
         Variable<Long> integerVariable = variablePool.lookup("long", Long.class);

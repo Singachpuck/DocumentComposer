@@ -15,6 +15,7 @@ import com.kpi.composer.service.compose.extract.ExpressionExtractor;
 import com.kpi.composer.service.compose.extract.Placeholder;
 import com.kpi.composer.service.compose.parse.ExpressionParser;
 import com.kpi.composer.service.compose.parse.VariableParserFactory;
+import com.kpi.composer.service.compose.replace.DocxTextReplacer;
 import com.kpi.composer.service.mapper.FileMapper;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,9 @@ public class DocxComposer extends Composer {
                            ExpressionParser expressionParser,
                            ExpressionExtractor expressionExtractor,
                            ConversionService conversionService,
+                           DocxTextReplacer docxTextReplacer,
                            FileMapper fileMapper) {
-        super(variableParserFactory, expressionParser, expressionExtractor, conversionService, fileMapper);
+        super(variableParserFactory, expressionParser, expressionExtractor, conversionService, docxTextReplacer, fileMapper);
     }
 
     @Override
@@ -54,14 +56,23 @@ public class DocxComposer extends Composer {
         try (XWPFDocument document = new XWPFDocument(new ByteArrayInputStream(template.getBytes()));
             ByteArrayOutputStream output = new ByteArrayOutputStream()) {
             for (XWPFParagraph p : document.getParagraphs()) {
-                List<XWPFRun> runs = p.getRuns();
+                final List<XWPFRun> runs = p.getRuns();
                 if (runs != null) {
-                    for (XWPFRun r : runs) {
-                        final String text = r.getText(0);
-                        if (text != null) {
-                            r.setText(this.replaceText(text, template, variablePool), 0);
-                        }
-                    }
+                    final List<DocxTextReplacer.DocxTextHolder> docxTextHolders = runs
+                            .stream()
+                            .map(DocxTextReplacer.DocxTextHolder::new)
+                            .toList();
+                    final Placeholder tokenPholder = new Placeholder(template.getBeginTokenPlaceholder(),
+                            template.getEndTokenPlaceholder());
+                    final Placeholder escapePholder = new Placeholder(template.getBeginEscapePlaceholder(),
+                            template.getEndEscapePlaceholder());
+                    docxTextReplacer.replaceParts(docxTextHolders, tokenPholder, escapePholder, variablePool);
+//                    for (XWPFRun r : runs) {
+//                        final String text = r.getText(0);
+//                        if (text != null) {
+//                            r.setText(this.replaceText(text, template, variablePool), 0);
+//                        }
+//                    }
                 }
             }
 
@@ -69,12 +80,23 @@ public class DocxComposer extends Composer {
                 for (XWPFTableRow row : tbl.getRows()) {
                     for (XWPFTableCell cell : row.getTableCells()) {
                         for (XWPFParagraph p : cell.getParagraphs()) {
-//                            final List<XWPFRun> runs = p.getRuns();
-                            for (XWPFRun r : p.getRuns()) {
-                                String text = r.getText(0);
-                                if (text != null) {
-                                    r.setText(this.replaceText(text, template, variablePool), 0);
-                                }
+                            final List<XWPFRun> runs = p.getRuns();
+                            if (runs != null && !runs.isEmpty()) {
+                                final List<DocxTextReplacer.DocxTextHolder> docxTextHolders = runs
+                                        .stream()
+                                        .map(DocxTextReplacer.DocxTextHolder::new)
+                                        .toList();
+                                final Placeholder tokenPholder = new Placeholder(template.getBeginTokenPlaceholder(),
+                                        template.getEndTokenPlaceholder());
+                                final Placeholder escapePholder = new Placeholder(template.getBeginEscapePlaceholder(),
+                                        template.getEndEscapePlaceholder());
+                                docxTextReplacer.replaceParts(docxTextHolders, tokenPholder, escapePholder, variablePool);
+//                            for (XWPFRun r : p.getRuns()) {
+//                                String text = r.getText(0);
+//                                if (text != null) {
+//                                    r.setText(this.replaceText(text, template, variablePool), 0);
+//                                }
+//                            }
                             }
                         }
                     }
