@@ -1,23 +1,57 @@
 package com.kpi.composer.service.compose.parse.token;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Set;
 import java.util.function.Predicate;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum Atom {
-    ALPHA(Character::isAlphabetic),
-    DIGIT(Character::isDigit),
-    SPACE(Character::isSpaceChar),
-    ESCAPE((atom) -> '\\' == atom),
-    QUOTE((atom) -> '\'' == atom),
-    SPECIAL((atom) -> Set.of('+', '-', '*', '/', '(', ')').contains(atom)),
-    POINT((atom) -> '.' == atom);
+    ALPHA {
+        @Override
+        public boolean belongs(char c) {
+            return Character.isAlphabetic(c);
+        }
+    },
+    DIGIT {
+        @Override
+        public boolean belongs(char c) {
+            return Character.isDigit(c);
+        }
+    },
+    SPACE {
+        @Override
+        public boolean belongs(char c) {
+            return Character.isSpaceChar(c);
+        }
+    },
+    ESCAPE {
+        @Override
+        public boolean belongs(char c) {
+            return '\\' == c;
+        }
+    },
+    QUOTE {
+        @Override
+        public boolean belongs(char c) {
+            return '\'' == c;
+        }
+    },
+    SPECIAL {
+        @Override
+        public boolean belongs(char c) {
+            return specialChars.contains(c);
+        }
+    },
+    POINT {
+        @Override
+        public boolean belongs(char c) {
+            return '.' == c;
+        }
+    };
 
-    private final Predicate<Character> isAtom;
+    private static final Set<Character> specialChars = Set.of('+', '-', '*', '/', '(', ')');
 
-    public boolean belongs(char c) {
-        return isAtom.test(c);
-    }
+    public abstract boolean belongs(char c);
 }

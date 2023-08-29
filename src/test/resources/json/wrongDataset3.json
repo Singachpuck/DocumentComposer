@@ -1,0 +1,12 @@
+{
+    "string1": ,
+    "string2": "string2",
+    "number1": 10,
+    "number2": 20,
+    "float1": 10.5,
+    "float2": 20.5,
+    "object1": {
+        "name": "value"
+    },
+    "array1": [10, "dedq", 15.5, 16]
+}

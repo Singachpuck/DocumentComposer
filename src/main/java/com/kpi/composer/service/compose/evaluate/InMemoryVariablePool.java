@@ -1,6 +1,7 @@
 package com.kpi.composer.service.compose.evaluate;
 
 import com.kpi.composer.exception.VariableCastException;
+import com.kpi.composer.exception.VariableNotFoundException;
 import org.springframework.core.convert.ConversionService;
 
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+// TODO: TESTED
 public class InMemoryVariablePool implements VariablePool {
 
     private final Map<String, Variable<?>> pool = new HashMap<>();
@@ -40,7 +42,7 @@ public class InMemoryVariablePool implements VariablePool {
         final Variable<Object> lookupVariable = new Variable<>(name);
         final Variable<?> variable = pool.get(name);
         if (variable == null) {
-            return null;
+            throw new VariableNotFoundException("Variable " + name + " does not exist");
         }
         lookupVariable.setValue(variable.getValue());
         return lookupVariable;
@@ -55,7 +57,7 @@ public class InMemoryVariablePool implements VariablePool {
         final Variable<T> lookupVariable = new Variable<>(name);
         final Variable<?> variable = pool.get(name);
         if (variable == null) {
-            return null;
+            throw new VariableNotFoundException("Variable " + name + " does not exist");
         }
         if (conversionService == null) {
             lookupVariable.setValue(type.cast(variable.getValue()));

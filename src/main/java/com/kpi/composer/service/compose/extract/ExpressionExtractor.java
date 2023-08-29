@@ -9,7 +9,5 @@ import java.util.Iterator;
 @RequiredArgsConstructor
 public abstract class ExpressionExtractor {
 
-//    public abstract Iterator<Expression> extract(String text);
-
     public abstract Iterator<Expression> extract(String text, Placeholder tokenPlaceholder, Placeholder escapePlaceholder);
 }

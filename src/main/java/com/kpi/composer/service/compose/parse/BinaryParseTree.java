@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+// TODO: TESTED!
 public class BinaryParseTree {
 
     private final List<Token> tokens;
@@ -27,13 +28,16 @@ public class BinaryParseTree {
     }
 
     public static BinaryParseTree build(List<Token> tokens) {
-//        Collections.copy(t, tokens);
         final BinaryParseTree bpt = new BinaryParseTree(tokens);
         bpt.root = bpt.buildRoot(bpt.tokens);
         return bpt;
     }
 
     public Node extract() {
+        return root;
+    }
+
+    public Node cloneAndExtract() {
         return SerializationUtils.clone(root);
     }
 
@@ -71,7 +75,7 @@ public class BinaryParseTree {
                     operators.push(ot);
                 } else if (ot.getOperator() == Operators.GROUP_CLOSE) {
                     this.buildGroup(operators, nodeStack);
-                } else if (!operators.isEmpty() && operators.peek().getOperator().getPrecedence() > ot.getOperator().getPrecedence()) {
+                } else if (!operators.isEmpty() && operators.peek().getOperator().getPrecedence() >= ot.getOperator().getPrecedence()) {
                     nodeStack.push(this.buildNode(operators, nodeStack));
                     operators.push(ot);
                 } else {
@@ -97,15 +101,19 @@ public class BinaryParseTree {
         }
         final Node node = new Node();
         node.setToken(operator);
+        if (nodeStack.isEmpty()) {
+            throw new ExpressionParseException("Can not resolve expression");
+        }
         node.setRight(nodeStack.pop());
+        if (nodeStack.isEmpty()) {
+            throw new ExpressionParseException("Can not resolve expression");
+        }
         node.setLeft(nodeStack.pop());
         return node;
     }
 
     private void buildGroup(Stack<OperatorToken> operators, Stack<Node> nodeStack) {
-        boolean isFirst = true;
         while (operators.peek().getOperator() != Operators.GROUP_OPEN) {
-            isFirst = false;
             nodeStack.push(this.buildNode(operators, nodeStack));
         }
         operators.pop();

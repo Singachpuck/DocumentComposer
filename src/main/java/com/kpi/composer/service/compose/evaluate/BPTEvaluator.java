@@ -7,33 +7,32 @@ import com.kpi.composer.service.compose.parse.token.LiteralToken;
 import com.kpi.composer.service.compose.parse.token.OperatorToken;
 import com.kpi.composer.service.compose.parse.token.VariableToken;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@RequiredArgsConstructor
+@Component
 public class BPTEvaluator extends Evaluator<BinaryParseTree> {
 
-    private final VariablePool variablePool;
-
-    public Object evaluate(BinaryParseTree tree) {
+    public Object evaluate(BinaryParseTree tree, VariablePool variablePool) {
         final BinaryParseTree.Node root = tree.extract();
         try {
-            return evaluateRecursive(root);
+            return evaluateRecursive(root, variablePool);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new EvaluationException(e.getMessage(), e);
         }
     }
 
-    private Object evaluateRecursive(BinaryParseTree.Node node) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Object evaluateRecursive(BinaryParseTree.Node node, VariablePool variablePool) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (node.getToken() instanceof LiteralToken lt) {
             return lt.getValue();
         } else if (node.getToken() instanceof VariableToken vt) {
             return variablePool.lookupLiteral(vt.getVariableName()).getValue();
         } else if (node.getToken() instanceof OperatorToken ot) {
-            final Object left = evaluateRecursive(node.getLeft());
-            final Object right = evaluateRecursive(node.getRight());
-            final Method compute = Evaluator.class.getDeclaredMethod(super.operatorMethodMap.get(ot.getOperator()),
+            final Object left = evaluateRecursive(node.getLeft(), variablePool);
+            final Object right = evaluateRecursive(node.getRight(), variablePool);
+            final Method compute = Evaluator.class.getDeclaredMethod(Evaluator.operatorMethodMap.get(ot.getOperator()),
                     left.getClass(),
                     right.getClass());
             compute.setAccessible(true);

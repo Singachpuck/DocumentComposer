@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+// TODO: TESTED!
 @Component
 @RequiredArgsConstructor
 public class JsonVariableParser implements VariableParser {

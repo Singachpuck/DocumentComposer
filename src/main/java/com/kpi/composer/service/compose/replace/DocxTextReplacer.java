@@ -9,7 +9,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DocxTextReplacer extends MultiPartTextReplacer<DocxTextReplacer.DocxTextHolder> {
+public class DocxTextReplacer extends MultiPartTextReplacer {
 
     @Autowired
     public DocxTextReplacer(ExpressionExtractor expressionExtractor,

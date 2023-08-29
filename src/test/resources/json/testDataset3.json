@@ -1,0 +1,8 @@
+{
+  "string1": "replaced1",
+  "string2": "replaced2",
+  "float1": 1.1,
+  "float2": 2.2,
+  "array1": [1, 2, 3],
+  "object1": {"name":"user1"}
+}

@@ -6,14 +6,14 @@ import java.util.Map;
 
 public abstract class Evaluator<T> {
 
-    protected final Map<Operators, String> operatorMethodMap = Map.of(
+    protected static final Map<Operators, String> operatorMethodMap = Map.of(
             Operators.PLUS, "add",
             Operators.MINUS, "subtract",
             Operators.DIVIDE, "divide",
             Operators.MULTIPLY, "multiply"
     );
 
-    public abstract Object evaluate(T from);
+    public abstract Object evaluate(T from, VariablePool variablePool);
 
     protected Long add(Long a, Long b) {
         return a + b;

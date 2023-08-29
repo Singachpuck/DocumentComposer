@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 
+// TODO: TESTED
 @Component
 public class DefaultExpressionExtractor extends ExpressionExtractor {
 
@@ -15,7 +16,7 @@ public class DefaultExpressionExtractor extends ExpressionExtractor {
         return new ExpressionIterator(text, tokenPlaceholder, escapePlaceholder);
     }
 
-    public static class ExpressionIterator implements Iterator<Expression> {
+    private static class ExpressionIterator implements Iterator<Expression> {
 
         private final String text;
 
@@ -98,7 +99,7 @@ public class DefaultExpressionExtractor extends ExpressionExtractor {
                             boolean isEscapeBeginEnd = false;
                             // check if placeholder is escaped in the end
                             if (isEscapeBegin) {
-                                if (current + escapePhldrEnd.length() <= textLen) {
+                                if (current + escapePhldrEnd.length() < textLen) {
                                     final String potentialPhldr = text.substring(current + 1, current + 1 + escapePhldrEnd.length());
                                     if (potentialPhldr.equals(escapePhldrEnd)) {
                                         isEscapeBeginEnd = true;
@@ -110,6 +111,10 @@ public class DefaultExpressionExtractor extends ExpressionExtractor {
                                 expressionEnd = current + 1 + escapePhldrEnd.length();
                                 isEscaped = true;
                             } else {
+                                if (isEscapeBegin) {
+                                    expressionBegin += escapePhldrBegin.length();
+                                    expressionBuffer.delete(0, tokenPhldrBegin.length());
+                                }
                                 expressionEnd = current + 1;
                                 expressionBuffer.delete(expressionBuffer.length() - tokenPhldrEnd.length(),
                                         expressionBuffer.length());
