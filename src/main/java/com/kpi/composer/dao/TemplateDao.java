@@ -12,4 +12,6 @@ public interface TemplateDao {
     Optional<Template> findById(Long id);
 
     Template save(Template template);
+
+    long count();
 }

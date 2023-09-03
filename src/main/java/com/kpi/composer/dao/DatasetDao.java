@@ -12,4 +12,6 @@ public interface DatasetDao {
     Optional<Dataset> findById(Long id);
 
     Dataset save(Dataset dataset);
+
+    long count();
 }

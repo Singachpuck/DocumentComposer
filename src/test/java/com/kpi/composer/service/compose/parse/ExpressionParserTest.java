@@ -27,7 +27,7 @@ public class ExpressionParserTest {
 
     @BeforeEach
     void setUp() {
-        final Collection<Variable<?>> variables = TestUtil.variableSet();
+        final Collection<Variable<?>> variables = TestUtil.variableExample();
         variablePool = InMemoryVariablePool.load(variables, null);
     }
 

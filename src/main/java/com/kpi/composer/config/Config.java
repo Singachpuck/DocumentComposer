@@ -11,10 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @AllArgsConstructor
 public class Config implements WebMvcConfigurer {
 
-    private TemplateService templateService;
-
-    private DatasetService datasetService;
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
 //        registry.addConverter(new ToStringConverter());

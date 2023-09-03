@@ -11,7 +11,6 @@ import org.springframework.core.convert.ConversionService;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +21,7 @@ class InMemoryVariablePoolTest {
 
     @BeforeEach
     void setUp() {
-        variables = TestUtil.variableSet();
+        variables = TestUtil.variableExample();
     }
 
     @Test

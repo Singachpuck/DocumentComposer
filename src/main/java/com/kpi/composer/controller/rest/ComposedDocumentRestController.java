@@ -18,8 +18,6 @@ public class ComposedDocumentRestController {
 
     private final ComposeService composeService;
 
-    private final FileMapper fileMapper;
-
     @GetMapping
     ResponseEntity<?> getAll() {
         return ResponseEntity.ok(composeService.findAll());
@@ -27,12 +25,12 @@ public class ComposedDocumentRestController {
 
     @GetMapping("/{composeId}")
     ResponseEntity<?> get(@PathVariable long composeId) {
-        return ResponseEntity.ok(composeService.findById(composeId));
+        return ResponseEntity.ok(composeService.findDtoById(composeId));
     }
 
     @PostMapping
     ResponseEntity<?> compose(@RequestBody ComposedDocumentDto documentDto) {
-        final ComposedDocument composedDocument = composeService.composeAndSave(documentDto.getTemplateId(),
+        final ComposedDocumentDto composedDocument = composeService.composeAndSave(documentDto.getTemplateId(),
                 documentDto.getDatasetId());
 
         final URI location = ServletUriComponentsBuilder
@@ -43,6 +41,6 @@ public class ComposedDocumentRestController {
 
         return ResponseEntity
                 .created(location)
-                .body(fileMapper.composedToDto(composedDocument));
+                .body(composedDocument);
     }
 }

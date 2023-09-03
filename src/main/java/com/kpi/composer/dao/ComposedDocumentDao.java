@@ -12,4 +12,8 @@ public interface ComposedDocumentDao {
     Optional<ComposedDocument> findById(Long id);
 
     ComposedDocument save(ComposedDocument dataset);
+
+    long count();
+
+    void deleteLast();
 }

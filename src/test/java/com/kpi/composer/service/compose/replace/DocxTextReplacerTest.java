@@ -1,6 +1,5 @@
 package com.kpi.composer.service.compose.replace;
 
-import com.kpi.composer.MsWordTest;
 import com.kpi.composer.TestUtil;
 import com.kpi.composer.service.compose.evaluate.BPTEvaluator;
 import com.kpi.composer.service.compose.evaluate.InMemoryVariablePool;

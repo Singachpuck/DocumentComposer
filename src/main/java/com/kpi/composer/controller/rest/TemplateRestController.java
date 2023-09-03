@@ -4,8 +4,10 @@ import com.kpi.composer.model.dto.TemplateDto;
 import com.kpi.composer.model.entities.Template;
 import com.kpi.composer.service.TemplateService;
 import com.kpi.composer.service.mapper.FileMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -14,11 +16,10 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/v1/templates")
 @RequiredArgsConstructor
+@Validated
 public class TemplateRestController {
 
     private final TemplateService templateService;
-
-    private final FileMapper fileMapper;
 
     @GetMapping
     ResponseEntity<?> getAll() {
@@ -31,8 +32,8 @@ public class TemplateRestController {
     }
 
     @PostMapping
-    ResponseEntity<?> create(@RequestBody TemplateDto templateDto) {
-        Template template = templateService.create(templateDto);
+    ResponseEntity<?> create(@Valid @RequestBody TemplateDto templateDto) {
+        TemplateDto template = templateService.create(templateDto);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
@@ -42,6 +43,6 @@ public class TemplateRestController {
 
         return ResponseEntity
                 .created(location)
-                .body(fileMapper.templateToDto(template));
+                .body(template);
     }
 }

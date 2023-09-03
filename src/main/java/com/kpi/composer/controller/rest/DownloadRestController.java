@@ -16,12 +16,13 @@ public class DownloadRestController {
 
     private final ComposeService composeService;
 
-    @GetMapping("/composed/{composeId}")
+    @GetMapping("/compose/{composeId}")
     ResponseEntity<?> downloadComposed(@PathVariable long composeId) {
         final ComposedDocument toDownload = composeService.findById(composeId);
 
         return ResponseEntity.ok()
                 .contentType(toDownload.getFormat().getContentType())
+                .contentLength(toDownload.getSize())
                 .body(toDownload.getBytes());
     }
 }

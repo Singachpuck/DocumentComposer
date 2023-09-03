@@ -52,19 +52,19 @@ public class SecurityConfig implements WebMvcConfigurer {
         return http.build();
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
-    }
-
-    @Bean
-    @DependsOn("passwordEncoder")
-    DaoAuthenticationProvider authenticationProvider(DaoUserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-        final DaoAuthenticationProvider ap = new DaoAuthenticationProvider();
-        ap.setUserDetailsService(userDetailsService);
-        ap.setPasswordEncoder(passwordEncoder);
-        return ap;
-    }
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder(10);
+//    }
+//
+//    @Bean
+//    @DependsOn("passwordEncoder")
+//    DaoAuthenticationProvider authenticationProvider(DaoUserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+//        final DaoAuthenticationProvider ap = new DaoAuthenticationProvider();
+//        ap.setUserDetailsService(userDetailsService);
+//        ap.setPasswordEncoder(passwordEncoder);
+//        return ap;
+//    }
 
     @Bean
     WebSecurityCustomizer customizer() {
