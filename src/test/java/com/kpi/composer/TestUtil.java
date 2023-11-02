@@ -124,7 +124,7 @@ public class TestUtil {
 
     public static List<Dataset> datasetExample() {
         final Dataset d1 = new Dataset();
-        d1.setId(0L);
+        d1.setId(1L);
         d1.setName("d1");
         d1.setFormat(SupportedFormats.JSON);
         d1.setBytes(new byte[] {1, 2, 3, 4, 5});
@@ -132,7 +132,7 @@ public class TestUtil {
         d1.setSize(1024L);
 
         final Dataset d2 = new Dataset();
-        d2.setId(1L);
+        d2.setId(2L);
         d2.setName("d2");
         d2.setFormat(SupportedFormats.JSON);
         d2.setBytes(new byte[] {100, 101, 102, 103, 104, 123});
@@ -140,7 +140,7 @@ public class TestUtil {
         d2.setSize(2048L);
 
         final Dataset d3 = new Dataset();
-        d3.setId(2L);
+        d3.setId(3L);
         d3.setName("d3");
         d3.setFormat(SupportedFormats.JSON);
         d3.setBytes(new byte[] {127, 32, 4, 13, 94, 3});
@@ -152,7 +152,7 @@ public class TestUtil {
 
     public static List<Template> templateExample() {
         final Template t1 = new Template();
-        t1.setId(0L);
+        t1.setId(1L);
         t1.setName("t1");
         t1.setFormat(SupportedFormats.DOCX);
         t1.setBytes(new byte[] {1, 2, 3, 4, 5});
@@ -164,7 +164,7 @@ public class TestUtil {
         t1.setSize(1024L);
 
         final Template t2 = new Template();
-        t2.setId(1L);
+        t2.setId(2L);
         t2.setName("t2");
         t2.setFormat(SupportedFormats.DOCX);
         t2.setBytes(new byte[] {100, 101, 102, 103, 104, 123});
@@ -176,7 +176,7 @@ public class TestUtil {
         t2.setSize(2048L);
 
         final Template t3 = new Template();
-        t3.setId(2L);
+        t3.setId(3L);
         t3.setName("t3");
         t3.setFormat(SupportedFormats.DOCX);
         t3.setBytes(new byte[] {127, 32, 4, 13, 94, 3});
@@ -195,7 +195,7 @@ public class TestUtil {
         final List<Dataset> datasets = datasetExample();
 
         final ComposedDocument d1 = new ComposedDocument();
-        d1.setId(0L);
+        d1.setId(1L);
         d1.setName("d1");
         d1.setFormat(SupportedFormats.DOCX);
         d1.setBytes(new byte[] {127, 32, 4, 13, 94, 3});
@@ -205,7 +205,7 @@ public class TestUtil {
         d1.setTemplate(templates.get(2));
 
         final ComposedDocument d2 = new ComposedDocument();
-        d2.setId(1L);
+        d2.setId(2L);
         d2.setName("d2");
         d2.setFormat(SupportedFormats.DOCX);
         d2.setBytes(new byte[] {1, 2, 3, 4, 5});
@@ -215,7 +215,7 @@ public class TestUtil {
         d2.setTemplate(templates.get(0));
 
         final ComposedDocument d3 = new ComposedDocument();
-        d3.setId(2L);
+        d3.setId(3L);
         d3.setName("d3");
         d3.setFormat(SupportedFormats.DOCX);
         d3.setBytes(new byte[] {100, 101, 102, 103, 104, 123});
