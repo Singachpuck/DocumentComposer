@@ -1,0 +1,56 @@
+<app-header></app-header>
+<section class="container pt-5">
+  <div class="row settings-wrapper">
+    <aside class="col-2 settings-panel">
+      <nav class="nav nav-tabs flex-column" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+      </nav>
+    </aside>
+    <article class="col">
+      <div class="tab-content settings-info" id="nav-tabContent">
+        <div class="tab-pane show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="forms-wrapper">
+            <form action="#">
+              <div class="mb-3 row">
+                <label for="update-username-input" class="col-2 col-form-label">Username</label>
+                <div class="col-3">
+                  <input type="text" class="form-control" id="update-username-input" placeholder="New username">
+                </div>
+                <div class="col-1">
+                  <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+              </div>
+            </form>
+            <form action="#">
+              <div class="mb-3 row">
+                <label for="update-email-input" class="col-2 col-form-label">Email</label>
+                <div class="col-3">
+                  <input type="text" class="form-control" id="update-email-input" placeholder="New email">
+                </div>
+                <div class="col-1">
+                  <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+              </div>
+            </form>
+            <form action="#">
+              <div class="mb-3 row">
+                <label for="update-password-input" class="col-2 col-form-label">Password</label>
+                <div class="col-3">
+                  <input type="password" class="form-control" id="update-password-input" placeholder="New password">
+                </div>
+                <div class="col-1">
+                  <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">TODO</div>
+        <div class="tab-pane" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">TODO</div>
+      </div>
+    </article>
+  </div>
+</section>
+<app-footer></app-footer>

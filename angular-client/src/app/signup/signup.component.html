@@ -1,0 +1,34 @@
+<app-full-screen>
+  <app-header></app-header>
+  <section class="container form-container">
+    <div class="form-wrapper">
+      <form action="#">
+        <fieldset>
+          <legend>Sign up</legend>
+          <div class="mb-3">
+            <label for="username-input" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username-input" aria-describedby="usernameHelp">
+            <div id="usernameHelp" class="form-text">Create username.</div>
+          </div>
+          <div class="mb-3">
+            <label for="email-input" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email-input" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Your email.</div>
+          </div>
+          <div class="mb-3">
+            <label for="password-input" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password-input" aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text">Create password.</div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </fieldset>
+        <div class="mt-3 fs-6 text-center">
+          <div>Already have an account?</div>
+          <div><a href="/login">Log in</a></div>
+        </div>
+      </form>
+    </div>
+  </section>
+</app-full-screen>
