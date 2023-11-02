@@ -20,6 +20,7 @@
 		<pdfbox.version>2.0.27</pdfbox.version>
 		<jempbox.version>1.8.17</jempbox.version>
 		<apache.poi.version>5.2.3</apache.poi.version>
+		<jjwt.version>0.11.5</jjwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -73,6 +74,23 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>${apache.poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${jjwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${jjwt.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 

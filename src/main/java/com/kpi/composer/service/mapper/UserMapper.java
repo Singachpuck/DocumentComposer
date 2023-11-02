@@ -1,7 +1,6 @@
 package com.kpi.composer.service.mapper;
 
 import com.kpi.composer.model.auth.Authorities;
-import com.kpi.composer.model.auth.UserPrincipal;
 import com.kpi.composer.model.dto.UserDto;
 import com.kpi.composer.model.entities.User;
 import org.mapstruct.Mapper;
@@ -16,10 +15,11 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     User dtoToUser(UserDto userDto);
 
-    @Mapping(target = "authorities", expression = "java(Authorities.getAllAuthorities())")
-    @Mapping(target = "accountNonExpired", constant = "true")
-    @Mapping(target = "accountNonLocked", constant = "true")
-    @Mapping(target = "credentialsNonExpired", constant = "true")
-    @Mapping(target = "enabled", constant = "true")
-    UserPrincipal entityToPrincipal(User user);
+    UserDto userToDto(User user);
+
+    default org.springframework.security.core.userdetails.User entityToUserDetails(User user) {
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                user.getPassword(),
+                Authorities.getAllAuthorities());
+    }
 }

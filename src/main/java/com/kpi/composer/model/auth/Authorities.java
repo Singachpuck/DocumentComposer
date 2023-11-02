@@ -1,11 +1,16 @@
 package com.kpi.composer.model.auth;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+@Getter
 public enum Authorities {
     DEFAULT("DEFAULT");
 
@@ -15,15 +20,25 @@ public enum Authorities {
         this.authority = new SimpleGrantedAuthority(authority);
     }
 
-    public GrantedAuthority getAuthority() {
-        return authority;
-    }
-
-    public static List<GrantedAuthority> getAllAuthorities() {
-        final List<GrantedAuthority> authorities = new ArrayList<>();
+    public static Set<GrantedAuthority> getAllAuthorities() {
+        final Set<GrantedAuthority> authorities = new HashSet<>(1);
         for (Authorities a : Authorities.values()) {
             authorities.add(a.getAuthority());
         }
         return authorities;
+    }
+
+    public static String getCommaJoinedAuthorities() {
+        return Arrays
+                .stream(Authorities.values())
+                .map(Enum::name)
+                .collect(Collectors.joining(","));
+    }
+
+    public static String populateAuthorities(Collection<? extends GrantedAuthority> collection) {
+        return collection
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
     }
 }

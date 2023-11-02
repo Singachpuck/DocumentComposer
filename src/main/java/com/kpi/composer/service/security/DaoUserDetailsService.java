@@ -1,4 +1,4 @@
-package com.kpi.composer.service.auth;
+package com.kpi.composer.service.security;
 
 import com.kpi.composer.dao.UserDao;
 import com.kpi.composer.model.entities.User;
@@ -23,8 +23,8 @@ public class DaoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final Optional<User> user = userDao.findByUsername(username);
         if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User " + username + "does not exist");
+            throw new UsernameNotFoundException("User " + username + "does not exist.");
         }
-        return userMapper.entityToPrincipal(user.get());
+        return userMapper.entityToUserDetails(user.get());
     }
 }
