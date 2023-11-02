@@ -3,8 +3,6 @@ package com.kpi.composer.model.entities;
 import com.kpi.composer.model.SupportedFormats;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class Template extends FileEntity {
-
-    public static final String TARGET_NAME = "TEMPLATE";
-
-    public static final String REDIRECT_URI = "/view/templates/{templateId}";
 
     public static final Set<SupportedFormats> SUPPORTED_FORMATS = Set.of(SupportedFormats.DOCX);
 
@@ -32,9 +26,4 @@ public class Template extends FileEntity {
 
     @Column
     private String endEscapePlaceholder;
-
-    @Column
-    @OneToMany
-    @JoinColumn(name = "template_id", referencedColumnName = "id")
-    private Set<Dataset> datasets;
 }

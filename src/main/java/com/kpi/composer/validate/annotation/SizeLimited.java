@@ -1,6 +1,5 @@
 package com.kpi.composer.validate.annotation;
 
-import com.kpi.composer.validate.FormatSupportedValidator;
 import com.kpi.composer.validate.SizeLimitedValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

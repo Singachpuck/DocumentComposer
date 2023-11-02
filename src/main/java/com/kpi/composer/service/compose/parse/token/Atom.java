@@ -1,10 +1,8 @@
 package com.kpi.composer.service.compose.parse.token;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Set;
-import java.util.function.Predicate;
 
 @AllArgsConstructor
 public enum Atom {

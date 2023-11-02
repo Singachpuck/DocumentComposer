@@ -1,7 +1,6 @@
 package com.kpi.composer.service.compose.replace;
 
 import com.kpi.composer.exception.ExpressionParseException;
-import com.kpi.composer.model.entities.Template;
 import com.kpi.composer.service.compose.evaluate.VariablePool;
 import com.kpi.composer.service.compose.extract.Expression;
 import com.kpi.composer.service.compose.extract.ExpressionExtractor;

@@ -1,11 +1,9 @@
 package com.kpi.composer.service.compose.extract;
 
-import com.kpi.composer.exception.TemplateProcessingException;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.regex.Matcher;
 
 // TODO: TESTED
 @Component

@@ -6,9 +6,7 @@ import com.kpi.composer.exception.MaxNumberExceededException;
 import com.kpi.composer.model.dto.TemplateDto;
 import com.kpi.composer.model.entities.Template;
 import com.kpi.composer.service.mapper.FileMapper;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

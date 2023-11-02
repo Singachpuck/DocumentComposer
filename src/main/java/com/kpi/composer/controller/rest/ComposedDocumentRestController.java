@@ -1,9 +1,7 @@
 package com.kpi.composer.controller.rest;
 
 import com.kpi.composer.model.dto.ComposedDocumentDto;
-import com.kpi.composer.model.entities.ComposedDocument;
 import com.kpi.composer.service.ComposeService;
-import com.kpi.composer.service.mapper.FileMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -6,7 +6,6 @@ import com.kpi.composer.service.compose.parse.BinaryParseTree;
 import com.kpi.composer.service.compose.parse.token.LiteralToken;
 import com.kpi.composer.service.compose.parse.token.OperatorToken;
 import com.kpi.composer.service.compose.parse.token.VariableToken;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;

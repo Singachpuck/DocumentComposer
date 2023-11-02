@@ -1,9 +1,7 @@
 package com.kpi.composer.controller.rest;
 
 import com.kpi.composer.model.dto.TemplateDto;
-import com.kpi.composer.model.entities.Template;
 import com.kpi.composer.service.TemplateService;
-import com.kpi.composer.service.mapper.FileMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

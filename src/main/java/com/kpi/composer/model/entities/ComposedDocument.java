@@ -12,10 +12,10 @@ import lombok.Setter;
 public class ComposedDocument extends FileEntity {
 
     @ManyToOne
-    @JoinColumn(name = "template.id")
+    @JoinColumn(name = "template_id", referencedColumnName = "id")
     private Template template;
 
     @ManyToOne
-    @JoinColumn(name = "dataset.id")
+    @JoinColumn(name = "dataset_id", referencedColumnName = "id")
     private Dataset dataset;
 }

@@ -1,6 +1,5 @@
 package com.kpi.composer.validate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpi.composer.model.dto.DatasetDto;
 import com.kpi.composer.model.dto.FileDto;
 import com.kpi.composer.model.dto.TemplateDto;
@@ -9,7 +8,6 @@ import com.kpi.composer.model.entities.Template;
 import com.kpi.composer.validate.annotation.FormatSupported;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class FormatSupportedValidator implements ConstraintValidator<FormatSupported, FileDto> {
 
