@@ -31,6 +31,7 @@ public class TokenService {
         final Authentication auth = authentication.getAuthentication();
         final String authorities = Authorities.populateAuthorities(auth.getAuthorities());
         final Date issued = new Date();
+        tokenDto.setUsername(auth.getName());
         tokenDto.setAuthorities(authorities);
         tokenDto.setExpiresIn(expiresIn);
 
