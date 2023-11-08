@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpBackend, HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpBackend, HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT } from "./util.service";
 import {UtilService} from "./util.service";

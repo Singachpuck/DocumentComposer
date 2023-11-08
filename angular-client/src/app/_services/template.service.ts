@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Template} from "../_model/template";
 import {API_ENDPOINT} from "./util.service";
 import {Observable} from "rxjs";
-import {TemplateAstVisitor} from "@angular/core/schematics/utils/template_ast_visitor";
 
 @Injectable({
   providedIn: 'root'
