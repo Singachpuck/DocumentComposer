@@ -11,6 +11,10 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import {authInterceptorProviders} from "./_helpers/auth.interceptor";
+import {HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
+import { TemplatesComponent } from './templates/templates.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +26,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
     SignupComponent,
     ProfileComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TemplatesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

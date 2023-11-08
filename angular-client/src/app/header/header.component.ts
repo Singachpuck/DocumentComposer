@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { UserService } from '../_services/user.service';
+import {User} from "../_model/user";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  @Input() requestUser: boolean = false;
+
+  @Output() userEvent = new EventEmitter<User> ();
+
+  user?: User;
+
+  constructor(private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
+    if (this.requestUser) {
+      let username = this.tokenService.getUsername();
+      if (username !== null) {
+        this.userService.getUserByUsername(username).subscribe(user => {
+          this.user = user;
+          this.userEvent.emit(user);
+        });
+      }
+    }
+  }
+
+  signOut(e: Event) {
+    e.preventDefault();
+    this.tokenService.signOut();
+    window.location.href = '/login';
   }
 
 }

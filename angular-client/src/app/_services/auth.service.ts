@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpBackend, HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-const AUTH_API = 'http://localhost:8080/api/v1/';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { API_ENDPOINT } from "./util.service";
+import {UtilService} from "./util.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'token', {
-      username,
-      password
-    }, httpOptions);
+  private http: HttpClient;
+  constructor(handler: HttpBackend, private util: UtilService) {
+    this.http = new HttpClient(handler);
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'users', {
+  login(username: any, password: any): Observable<any> {
+    let encodedCreds = 'Basic ' + this.util.encodeBase64(username + ':' + password);
+    return this.http.post(API_ENDPOINT + 'auth/token', null, {
+      headers: {
+        'Authorization': encodedCreds
+      }
+    });
+  }
+
+  register(username: any, email: any, password: any): Observable<any> {
+    return this.http.post(API_ENDPOINT + 'users', {
       username,
       email,
       password
-    }, httpOptions);
+    }, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }

@@ -1,0 +1,115 @@
+<app-header [requestUser]="true"></app-header>
+<main class="container templates-content">
+  <article class="row templates-panel pt-5 pb-4 px-4">
+    <div class="col-9">
+      <h1  class="mb-5">Templates</h1>
+      <div class="row">
+        <div class="col-2 me-4"><span>Total: {{templates ? templates.length : 0}}</span></div>
+        <div class="col-2"><span>Sort by</span></div>
+      </div>
+    </div>
+    <div class="col add-template-container">
+      <div class="add-template-child">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTemplateModal">Add template</button>
+
+        <!-- Modal Add Template -->
+        <div class="modal fade" id="addTemplateModal" tabindex="-1" aria-labelledby="addTemplateModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form action="#" [formGroup]="addTemplate" (ngSubmit)="onTemplateCreate()">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addTemplateModalLabel">Add Template</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <fieldset>
+                    <div class="row mb-3">
+                      <label for="newTemplateName" class="col-sm-4 col-form-label">Name</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" formControlName="name" id="newTemplateName">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="newTemplateName" class="col-sm-4 col-form-label">File</label>
+                      <div class="col-sm-8">
+                        <input type="file" class="form-control" #newTemplateFile id="newTemplateFile"
+                               [accept]="acceptFiles" (change)="onFileSelected($event)">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="newTemplateFormat" class="col-sm-4 col-form-label">Format</label>
+                      <div class="col-sm-4">
+                        <select class="form-select" formControlName="format" id="newTemplateFormat">
+                          <option *ngFor="let f of formats" [ngValue]="f.name">{{f.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-form-label col-sm-4">Token placeholder</div>
+                      <div class="row col">
+                        <div class="col-3">
+                          <input type="text" class="form-control" formControlName="beginTokenPlaceholder"
+                                 placeholder="${" aria-label="Begin token phldr">
+                        </div>
+                        <div class="col-3">
+                          <input type="text" class="form-control" formControlName="endTokenPlaceholder"
+                                 placeholder="}" aria-label="End token phldr">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-form-label col-sm-4">Escape placeholder</div>
+                      <div class="row col">
+                        <div class="col-3">
+                          <input type="text" class="form-control" formControlName="beginEscapePlaceholder"
+                                 placeholder="\" aria-label="Begin escape phldr">
+                        </div>
+                        <div class="col-3">
+                          <input type="text" class="form-control" formControlName="endEscapePlaceholder"
+                                 placeholder="\" aria-label="End escape phldr">
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+  <section class="templates-wrapper overflow-y-scroll">
+    <div class="py-3">
+      <ul class="overflow-hidden">
+        <li class="row border-top border-bottom py-4" *ngFor="let template of templates">
+          <div class="col-2 d-grid">
+            <div class="template-icon-wrapper">
+              1
+            </div>
+          </div>
+          <div class="col-8">
+            <h3 class="mb-4">{{template.name}}</h3>
+            <div class="row">
+              <div class="col">Created: {{template.created}}</div>
+              <div class="col">Size: {{template.size}}</div>
+            </div>
+          </div>
+          <div class="col-2 d-grid">
+            <div class="template-view-icon-wrapper">
+              <a href="/template">View</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <aside class="datasets-wrapper">
+    Datasets
+  </aside>
+</main>
+<app-footer></app-footer>

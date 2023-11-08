@@ -2,23 +2,53 @@
   <app-header></app-header>
   <section class="container form-container">
     <div class="form-wrapper">
-      <form action="#">
+      <form action="#" [formGroup]="userCreate" (ngSubmit)="onUserCreate()">
         <fieldset>
           <legend>Sign up</legend>
           <div class="mb-3">
             <label for="username-input" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username-input" aria-describedby="usernameHelp">
+            <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && username?.errors }"
+                   id="username-input" formControlName="username" aria-describedby="usernameHelp" required>
             <div id="usernameHelp" class="form-text">Create username.</div>
+            <!--Error messages-->
+            <div *ngIf="submitted && username?.invalid" class="invalid-feedback">
+              <div *ngIf="username?.errors?.['required']">
+                Username is required.
+              </div>
+              <div *ngIf="username?.errors?.['maxlength']">
+                Username must be at most 50 characters long.
+              </div>
+              <div *ngIf="username?.errors?.['whitespace'] && !username?.errors?.['required']">
+                Username can not contain only whitespaces.
+              </div>
+            </div>
           </div>
           <div class="mb-3">
             <label for="email-input" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email-input" aria-describedby="emailHelp">
+            <input type="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && email?.errors }"
+                   id="email-input" formControlName="email" aria-describedby="emailHelp" required>
             <div id="emailHelp" class="form-text">Your email.</div>
+            <!--Error messages-->
+            <div *ngIf="submitted && email?.invalid" class="invalid-feedback">
+              <div *ngIf="email?.errors?.['required']">
+                Email is required.
+              </div>
+              <div *ngIf="email?.errors?.['email']">
+                Email is not valid.
+              </div>
+            </div>
           </div>
           <div class="mb-3">
             <label for="password-input" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password-input" aria-describedby="passwordHelp">
+            <input type="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && password?.errors }"
+                   id="password-input" formControlName="password" aria-describedby="passwordHelp" required>
             <div id="passwordHelp" class="form-text">Create password.</div>
+            <!--Error messages-->
+            <div *ngIf="submitted && password?.invalid" class="invalid-feedback">
+              <div *ngIf="password?.errors?.['required']">
+                Password is required.
+              </div>
+            </div>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary">Submit</button>

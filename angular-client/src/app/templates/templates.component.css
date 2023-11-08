@@ -1,0 +1,47 @@
+.templates-content {
+  display: grid;
+  grid-template-columns: [first-col] 3fr [second-col] 1fr [third-col];
+  grid-template-rows: [first-row] 200px [second-row] 500px [third-row];
+  grid-column-gap: 150px;
+}
+
+.templates-panel {
+  grid-column-start: first-col;
+  grid-column-end: second-col;
+  grid-row-start: first-row;
+  grid-row-end: second-row;
+}
+
+.templates-wrapper {
+  grid-column-start: first-col;
+  grid-column-end: second-col;
+  grid-row-start: second-row;
+  grid-row-end: third-row;
+
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.datasets-wrapper {
+  grid-column-start: second-col;
+  grid-column-end: third-col;
+  grid-row-start: second-row;
+  grid-row-end: third-row;
+
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.add-template-container {
+  display: grid;
+}
+
+.add-template-child {
+  justify-self: center;
+  align-self: center;
+}
+
+.template-icon-wrapper, .template-view-icon-wrapper {
+  justify-self: center;
+  align-self: center;
+}
