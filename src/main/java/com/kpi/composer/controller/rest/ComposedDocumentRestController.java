@@ -1,5 +1,6 @@
 package com.kpi.composer.controller.rest;
 
+import com.kpi.composer.exception.NotOwnerException;
 import com.kpi.composer.model.dto.ComposedDocumentDto;
 import com.kpi.composer.service.ComposeService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,9 @@ public class ComposedDocumentRestController {
 
     @GetMapping
     ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(composeService.findAll());
+        // This operation is not allowed for DEFAULT privileged users.
+        // Will be available in future when authorities will be extended.
+        throw new NotOwnerException("Not enough privileges.");
     }
 
     @GetMapping("/{composeId}")

@@ -1,5 +1,6 @@
 package com.kpi.composer.controller.rest;
 
+import com.kpi.composer.exception.NotOwnerException;
 import com.kpi.composer.model.dto.TemplateDto;
 import com.kpi.composer.service.TemplateService;
 import jakarta.validation.Valid;
@@ -21,7 +22,9 @@ public class TemplateRestController {
 
     @GetMapping
     ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(templateService.findAll());
+        // This operation is not allowed for DEFAULT privileged users.
+        // Will be available in future when authorities will be extended.
+        throw new NotOwnerException("Not enough privileges.");
     }
 
     @GetMapping("/{templateId}")
@@ -29,9 +32,14 @@ public class TemplateRestController {
         return ResponseEntity.ok(templateService.findDtoById(templateId));
     }
 
+    @GetMapping("/user/{username}")
+    ResponseEntity<?> getByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(templateService.findByOwner(username));
+    }
+
     @PostMapping
     ResponseEntity<?> create(@Valid @RequestBody TemplateDto templateDto) {
-        TemplateDto template = templateService.create(templateDto);
+        final TemplateDto template = templateService.create(templateDto);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()

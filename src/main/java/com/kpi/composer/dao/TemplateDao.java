@@ -11,7 +11,9 @@ public interface TemplateDao {
 
     Optional<Template> findById(Long id);
 
+    Collection<Template> findAllByOwner(String username);
+
     Template save(Template template);
 
-    long count();
+    long count(String owner);
 }

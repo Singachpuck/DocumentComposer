@@ -1,5 +1,6 @@
 package com.kpi.composer.controller.rest;
 
+import com.kpi.composer.exception.NotOwnerException;
 import com.kpi.composer.model.dto.DatasetDto;
 import com.kpi.composer.service.DatasetService;
 import jakarta.validation.Valid;
@@ -21,12 +22,19 @@ public class DatasetRestController {
 
     @GetMapping
     ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(datasetService.findAll());
+        // This operation is not allowed for DEFAULT privileged users.
+        // Will be available in future when authorities will be extended.
+        throw new NotOwnerException("Not enough privileges.");
     }
 
     @GetMapping("/{datasetId}")
     ResponseEntity<?> get(@PathVariable long datasetId) {
         return ResponseEntity.ok(datasetService.findDtoById(datasetId));
+    }
+
+    @GetMapping("/user/{username}")
+    ResponseEntity<?> getByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(datasetService.findByOwner(username));
     }
 
     @PostMapping

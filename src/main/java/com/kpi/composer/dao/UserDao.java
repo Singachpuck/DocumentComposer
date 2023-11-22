@@ -14,4 +14,8 @@ public interface UserDao {
     Optional<User> findByUsername(String username);
 
     User save(User user);
+
+    boolean existsByUsername(String username);
+
+    void deleteByUsername(String username);
 }

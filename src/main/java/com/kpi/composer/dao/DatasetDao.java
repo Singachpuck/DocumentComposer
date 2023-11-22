@@ -11,7 +11,9 @@ public interface DatasetDao {
 
     Optional<Dataset> findById(Long id);
 
+    Collection<Dataset> findAllByOwner(String username);
+
     Dataset save(Dataset dataset);
 
-    long count();
+    long count(String owner);
 }

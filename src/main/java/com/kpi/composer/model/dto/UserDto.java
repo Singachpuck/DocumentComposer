@@ -1,5 +1,6 @@
 package com.kpi.composer.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class UserDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotBlank(message = "Username must not be blank.")

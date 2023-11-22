@@ -1,10 +1,10 @@
 package com.kpi.composer.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kpi.composer.model.SupportedFormats;
 import com.kpi.composer.validate.annotation.FormatSupported;
 import com.kpi.composer.validate.annotation.SizeLimited;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +17,7 @@ import java.time.ZonedDateTime;
 @SizeLimited
 public abstract class FileDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotBlank(message = "Entity name must not be blank.")
@@ -25,10 +26,12 @@ public abstract class FileDto {
 
     private SupportedFormats format;
 
-    @PastOrPresent(message = "Invalid creation date.")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private ZonedDateTime created;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long size;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private byte[] bytes;
 }

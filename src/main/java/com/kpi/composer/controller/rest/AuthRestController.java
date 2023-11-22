@@ -1,12 +1,12 @@
 package com.kpi.composer.controller.rest;
 
 import com.kpi.composer.model.dto.UserDto;
-import com.kpi.composer.model.entities.User;
 import com.kpi.composer.service.UserService;
 import com.kpi.composer.service.security.jwt.TokenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,18 +27,13 @@ public class AuthRestController {
     }
 
     @GetMapping("/users")
-    ResponseEntity<?> get() {
+    ResponseEntity<?> getAll() {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @GetMapping("/users/{username}")
-    ResponseEntity<?> getByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(userService.findDtoByUsername(username));
-    }
-
-    @PostMapping("/users")
+    @PostMapping("/signup")
     ResponseEntity<?> register(@Valid @RequestBody UserDto user) {
-        final User created = userService.create(user);
+        final UserDto created = userService.create(user);
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
@@ -49,5 +44,21 @@ public class AuthRestController {
         return ResponseEntity
                 .created(uri)
                 .build();
+    }
+
+    @GetMapping("/users/{username}")
+    ResponseEntity<?> get(@PathVariable String username) {
+        return ResponseEntity.ok(userService.findDtoByUsername(username));
+    }
+
+    @PatchMapping("/users/{username}")
+    ResponseEntity<?> update(@PathVariable String username, @Valid @RequestBody UserDto user, BindingResult result) {
+        return ResponseEntity.ok(userService.update(username, user, result));
+    }
+
+    @DeleteMapping("/users/{username}")
+    ResponseEntity<?> delete(@PathVariable String username) {
+        userService.delete(username);
+        return ResponseEntity.noContent().build();
     }
 }

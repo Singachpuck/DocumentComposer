@@ -15,6 +15,7 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     User dtoToUser(UserDto userDto);
 
+    @Mapping(target = "password", ignore = true)
     UserDto userToDto(User user);
 
     default org.springframework.security.core.userdetails.User entityToUserDetails(User user) {

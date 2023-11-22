@@ -41,7 +41,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                     return config;
                 })
                 .and()
-                .csrf() // TODO: implement
+                .csrf()
                 .disable()
                 .headers()
                 .frameOptions()
@@ -49,19 +49,18 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .and()
                 .addFilterBefore(new JWTValidationFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new ExceptionHandlerFilter(), JWTValidationFilter.class)
-                .authorizeHttpRequests(request -> {
-                    request
-                            .requestMatchers(HttpMethod.POST, "/api/v1/users")
-                            .permitAll()
-                            .requestMatchers("/api/v1/compose/**",
-                                    "/api/v1/datasets/**",
-                                    "/api/v1/download/**",
-                                    "/api/v1/templates/**",
-                                    "/api/v1/users/**",
-                                    "/api/v1/auth/token"
-                            )
-                            .hasAuthority(Authorities.DEFAULT.getAuthority().getAuthority());
-                })
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.POST, "/api/v1/signup")
+                        .permitAll()
+                        .requestMatchers("/api/v1/compose/**",
+                                "/api/v1/datasets/**",
+                                "/api/v1/download/**",
+                                "/api/v1/templates/**",
+                                "/api/v1/users/**",
+                                "/api/v1/auth/token"
+                        )
+                        .hasAuthority(Authorities.DEFAULT.getAuthority().getAuthority())
+                )
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();

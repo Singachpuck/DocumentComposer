@@ -11,9 +11,12 @@ public interface ComposedDocumentDao {
 
     Optional<ComposedDocument> findById(Long id);
 
+    Collection<ComposedDocument> findAllByOwner(String username);
+
     ComposedDocument save(ComposedDocument dataset);
 
-    long count();
+    long count(String owner);
 
-    void deleteLast();
+
+    void deleteLast(String owner);
 }
