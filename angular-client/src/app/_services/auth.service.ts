@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpBackend, HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { API_ENDPOINT } from "./util.service";
-import {UtilService} from "./util.service";
+import {Observable} from 'rxjs';
+import {API_ENDPOINT, UtilService} from "./util.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +18,19 @@ export class AuthService {
     return this.http.post(API_ENDPOINT + 'auth/token', null, {
       headers: {
         'Authorization': encodedCreds
-      }
+      },
+      withCredentials: true
     });
   }
 
   register(username: any, email: any, password: any): Observable<any> {
-    return this.http.post(API_ENDPOINT + 'users', {
+    return this.http.post(API_ENDPOINT + 'signup', {
       username,
       email,
       password
     }, {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
     });
   }
 }

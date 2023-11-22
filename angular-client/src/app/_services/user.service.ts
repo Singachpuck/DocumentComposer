@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { API_ENDPOINT } from "./util.service";
+import {API_ENDPOINT} from "./util.service";
 import {Observable} from "rxjs";
 import {User} from "../_model/user";
 

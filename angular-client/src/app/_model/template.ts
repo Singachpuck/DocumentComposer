@@ -1,12 +1,6 @@
-export class Template {
+import {File} from "./file";
 
-  id: null | number = null;
-
-  name: null | string = null;
-
-  format: null | string = null;
-
-  created: null | Date = null;
+export class Template extends File{
 
   beginTokenPlaceholder: null | string = null;
 
@@ -15,20 +9,4 @@ export class Template {
   beginEscapePlaceholder: null | string = null;
 
   endEscapePlaceholder: null | string = null;
-
-  size: null | number = null;
-
-  bytes: null | string = null;
-
-  toJson(): { [name: string]: any } {
-    let json = {};
-    let ignore = ['size', 'created', 'id'];
-
-    Object.getOwnPropertyNames(this).filter(name => ignore.indexOf(name) < 0).forEach(name => {
-      // @ts-ignore
-      json[name] = this[name];
-    });
-
-    return json;
-  }
 }

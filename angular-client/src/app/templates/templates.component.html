@@ -5,7 +5,17 @@
       <h1  class="mb-5">Templates</h1>
       <div class="row">
         <div class="col-2 me-4"><span>Total: {{templates ? templates.length : 0}}</span></div>
-        <div class="col-2"><span>Sort by</span></div>
+        <div class="col-2 dropdown">
+          <span class="cursor-pointer dropdown-toggle" id="sortByDropDown" data-bs-toggle="dropdown" aria-expanded="false">Sort by</span>
+          <ul class="dropdown-menu" aria-labelledby="sortByDropDown">
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'name', 'asc')">Name Asc</a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'name', 'desc')">Name Desc</a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'created', 'asc')">Created Asc</a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'created', 'desc')">Created Desc</a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'size', 'asc')">Size Asc</a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'size', 'desc')">Size Desc</a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="col add-template-container">
@@ -33,7 +43,7 @@
                       <label for="newTemplateName" class="col-sm-4 col-form-label">File</label>
                       <div class="col-sm-8">
                         <input type="file" class="form-control" #newTemplateFile id="newTemplateFile"
-                               [accept]="acceptFiles" (change)="onFileSelected($event)">
+                               [accept]="acceptFiles" (change)="onTemplateFileSelected($event)">
                       </div>
                     </div>
                     <div class="row mb-3">
@@ -89,19 +99,19 @@
         <li class="row border-top border-bottom py-4" *ngFor="let template of templates">
           <div class="col-2 d-grid">
             <div class="template-icon-wrapper">
-              1
+              <i class="bi" [ngClass]="lookupFormat(template.format, 'template')?.iconClass"></i>
             </div>
           </div>
           <div class="col-8">
             <h3 class="mb-4">{{template.name}}</h3>
             <div class="row">
-              <div class="col">Created: {{template.created}}</div>
-              <div class="col">Size: {{template.size}}</div>
+              <div class="col">Created: {{template.created | date: 'short' }}</div>
+              <div class="col">Size: {{template.size | sizeFormatter}}</div>
             </div>
           </div>
           <div class="col-2 d-grid">
             <div class="template-view-icon-wrapper">
-              <a href="/template">View</a>
+              <a href="#" [attr.data-template-id]="template.id" (click)="" ><i class="bi bi-download"></i></a>
             </div>
           </div>
         </li>
@@ -109,7 +119,75 @@
     </div>
   </section>
   <aside class="datasets-wrapper">
-    Datasets
+    <div class="pt-3">
+      <ul class="overflow-hidden overflow-y-scroll">
+        <li class="row dataset border-top border-bottom py-2" *ngFor="let dataset of datasets">
+          <div class="col-3 d-grid">
+            <div class="dataset-icon-wrapper">
+              <i class="bi" [ngClass]="lookupFormat(dataset.format, 'dataset')?.iconClass"></i>
+            </div>
+          </div>
+          <div class="col-6">
+            <h5 class="mb-2">{{dataset.name}}</h5>
+            <div class="d-flex flex-column">
+              <div class="col">Created: {{dataset.created | date: 'short'}}</div>
+              <div class="col">Size: {{dataset.size | sizeFormatter}}</div>
+            </div>
+          </div>
+          <div class="col-3 d-grid">
+            <div class="dataset-view-icon-wrapper">
+              <a [href]="'/download/datasets/' + dataset.id" ><i class="bi bi-download"></i></a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="add-dataset-wrapper">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDatasetModal"><i class="bi bi-file-earmark-plus"></i></button>
+
+        <!-- Modal Add Dataset -->
+        <div class="modal fade" id="addDatasetModal" tabindex="-1" aria-labelledby="addDatasetModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form action="#" [formGroup]="addDataset" (ngSubmit)="onDatasetCreate()">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addDatasetModalLabel">Add Dataset</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <fieldset>
+                    <div class="row mb-3">
+                      <label for="newDatasetName" class="col-sm-4 col-form-label">Name</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" formControlName="name" id="newDatasetName">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="newDatasetName" class="col-sm-4 col-form-label">File</label>
+                      <div class="col-sm-8">
+                        <input type="file" class="form-control" #newDatasetFile id="newDatasetFile"
+                               [accept]="acceptDatasetFiles" (change)="onDatasetFileSelected($event)">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="newDatasetFormat" class="col-sm-4 col-form-label">Format</label>
+                      <div class="col-sm-4">
+                        <select class="form-select" formControlName="format" id="newDatasetFormat">
+                          <option *ngFor="let f of datasetFormats" [ngValue]="f.name">{{f.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </aside>
 </main>
 <app-footer></app-footer>

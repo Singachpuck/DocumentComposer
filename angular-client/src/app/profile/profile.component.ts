@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../_model/user";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../_services/user.service";

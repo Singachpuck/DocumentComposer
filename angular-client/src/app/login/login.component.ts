@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../_services/auth.service";
 import {TokenStorageService} from "../_services/token-storage.service";
@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.userForm.get('username')?.value, this.userForm.get('password')?.value)
-      .subscribe(token => {
-      this.tokenService.saveToken(token);
-      window.location.href = '/profile';
+      .subscribe((token: any) => {
+        this.tokenService.saveToken(token);
+        window.location.href = '/templates';
     });
   }
 

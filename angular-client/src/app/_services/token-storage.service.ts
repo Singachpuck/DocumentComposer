@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {UtilService} from "./util.service";
 
 const TOKEN_KEY = 'auth-token';

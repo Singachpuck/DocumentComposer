@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { UserService } from '../_services/user.service';
+import {UserService} from '../_services/user.service';
 import {User} from "../_model/user";
 import {TokenStorageService} from "../_services/token-storage.service";
 

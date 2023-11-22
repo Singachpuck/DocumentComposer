@@ -37,11 +37,34 @@
 }
 
 .add-template-child {
-  justify-self: center;
-  align-self: center;
+  place-self: center;
 }
 
 .template-icon-wrapper, .template-view-icon-wrapper {
-  justify-self: center;
-  align-self: center;
+  font-size: 2rem;
+  place-self: center;
+}
+
+.datasets-wrapper > div {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 6fr 1fr;
+}
+
+.dataset-icon-wrapper, .dataset-view-icon-wrapper {
+  font-size: 1rem;
+  place-self: center;
+}
+
+.dataset {
+  font-size: 12px;
+}
+
+.dataset * {
+  padding: 0!important;
+}
+
+.add-dataset-wrapper {
+  display: grid;
+  /*place-items: stretch;*/
 }

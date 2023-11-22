@@ -2,3 +2,7 @@ ul {
   padding: 0 !important;
   margin: 0 !important;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

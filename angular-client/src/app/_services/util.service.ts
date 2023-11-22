@@ -1,9 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Buffer } from 'buffer';
+import {Injectable} from '@angular/core';
+import {Buffer} from 'buffer';
 
 const API_ENDPOINT = 'http://localhost:8080/api/v1/';
 const TEMPLATE_SUPPORTED_FORMATS = [
-  {name: 'DOCX', media: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}
+  {name: 'DOCX', media: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', iconClass: 'bi-filetype-docx'}
+];
+
+const DATASET_SUPPORTED_FORMATS = [
+  {name: 'JSON', media: 'application/json', iconClass: 'bi-filetype-json'}
 ];
 
 const DEFAULT_TOKEN_PLACEHOLDER = {
@@ -48,6 +52,7 @@ export class UtilService {
 export {
   API_ENDPOINT,
   TEMPLATE_SUPPORTED_FORMATS,
+  DATASET_SUPPORTED_FORMATS,
   DEFAULT_TOKEN_PLACEHOLDER,
   DEFAULT_ESCAPE_PLACEHOLDER
 }
