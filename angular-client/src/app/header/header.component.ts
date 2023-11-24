@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../_services/user.service';
 import {User} from "../_model/user";
 import {TokenStorageService} from "../_services/token-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   user?: User;
 
-  constructor(private userService: UserService, private tokenService: TokenStorageService) { }
+  constructor(private router: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     if (this.requestUser) {
@@ -33,7 +34,7 @@ export class HeaderComponent implements OnInit {
   signOut(e: Event) {
     e.preventDefault();
     this.tokenService.signOut();
-    window.location.href = '/login';
+    this.router.navigate(['/login']);
   }
 
 }

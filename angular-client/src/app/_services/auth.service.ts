@@ -17,7 +17,8 @@ export class AuthService {
     let encodedCreds = 'Basic ' + this.util.encodeBase64(username + ':' + password);
     return this.http.post(API_ENDPOINT + 'auth/token', null, {
       headers: {
-        'Authorization': encodedCreds
+        'Authorization': encodedCreds,
+        'X-Requested-With': 'XMLHttpRequest'
       },
       withCredentials: true
     });
@@ -29,7 +30,10 @@ export class AuthService {
       email,
       password
     }, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
       withCredentials: true
     });
   }

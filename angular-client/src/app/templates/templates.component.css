@@ -1,8 +1,17 @@
+.selected {
+  background-color: var(--bs-blue);
+  color: var(--bs-light);
+}
+
+.selected a {
+  --bs-link-color-rgb: 255,255,255;
+  --bs-link-color: #fff;
+}
+
 .templates-content {
   display: grid;
-  grid-template-columns: [first-col] 3fr [second-col] 1fr [third-col];
+  grid-template-columns: [first-col] 6fr [second-col] 1fr [third-col] 2fr [forth-col];
   grid-template-rows: [first-row] 200px [second-row] 500px [third-row];
-  grid-column-gap: 150px;
 }
 
 .templates-panel {
@@ -10,6 +19,15 @@
   grid-column-end: second-col;
   grid-row-start: first-row;
   grid-row-end: second-row;
+}
+
+.dataset-panel {
+  grid-column-start: third-col;
+  grid-column-end: forth-col;
+  grid-row-start: first-row;
+  grid-row-end: second-row;
+
+  align-self: end;
 }
 
 .templates-wrapper {
@@ -22,9 +40,18 @@
   border-radius: 10px;
 }
 
-.datasets-wrapper {
+.compose-wrapper {
   grid-column-start: second-col;
   grid-column-end: third-col;
+  grid-row-start: second-row;
+  grid-row-end: third-row;
+
+  place-self: center;
+}
+
+.datasets-wrapper {
+  grid-column-start: third-col;
+  grid-column-end: forth-col;
   grid-row-start: second-row;
   grid-row-end: third-row;
 

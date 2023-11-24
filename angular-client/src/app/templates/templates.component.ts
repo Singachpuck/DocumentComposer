@@ -11,6 +11,10 @@ import {Template} from "../_model/template";
 import {TemplateService} from "../_services/template.service";
 import {Dataset} from "../_model/dataset";
 import {DatasetService} from "../_services/dataset.service";
+import {DownloadService} from "../_services/download.service";
+import {HttpResponse} from "@angular/common/http";
+import {ComposeService} from "../_services/compose.service";
+import {ComposedDocument} from "../_model/composed-document";
 
 @Component({
   selector: 'app-templates',
@@ -40,16 +44,24 @@ export class TemplatesComponent implements OnInit {
     endEscapePlaceholder: new FormControl(DEFAULT_ESCAPE_PLACEHOLDER.end),
   });
 
-  templates?: Array<Template>;
+  templates: Array<Template> = [];
 
   addDataset = new FormGroup({
     name: new FormControl(''),
     format: new FormControl(this.datasetFormats[0].name)
   });
 
-  datasets?: Array<Dataset>;
+  datasets: Array<Dataset> = [];
 
-  constructor(private util: UtilService, private templateService: TemplateService, private datasetService: DatasetService) { }
+  selectedTemplate: any = null;
+
+  selectedDataset: any = null;
+
+  lastComposed: ComposedDocument | null = null;
+
+  constructor(private util: UtilService, private templateService: TemplateService,
+              private datasetService: DatasetService, private downloadService: DownloadService,
+              private composeService: ComposeService) { }
 
   ngOnInit(): void {
     this.acceptFiles = this.formats.map(i => i.media).join(',');
@@ -72,24 +84,12 @@ export class TemplatesComponent implements OnInit {
 
   onTemplateSortBy(e: Event, type: 'name' | 'created' | 'size', order: 'asc' | 'desc') {
     e.preventDefault();
+    this.util.sortEntities(this.templates, type, order);
+  }
 
-    if (type === 'name') {
-      // @ts-ignore
-      this.templates?.sort((a: Template, b: Template) => {
-        // @ts-ignore
-        return a.name?.localeCompare(b.name) * ('asc' === order ? 1 : -1);
-      });
-    } else if (type === 'created') {
-      this.templates?.sort((a: Template, b: Template) => {
-        // @ts-ignore
-        return (new Date(a.created).getTime() - new Date(b.created).getTime()) * ('asc' === order ? 1 : -1);
-      });
-    } else if (type === 'size') {
-      this.templates?.sort((a: Template, b: Template) => {
-        // @ts-ignore
-        return (a.size - b.size) * ('asc' === order ? 1 : -1);
-      });
-    }
+  onDatasetSortBy(e: Event, type: 'name' | 'created' | 'size', order: 'asc' | 'desc') {
+    e.preventDefault();
+    this.util.sortEntities(this.datasets, type, order);
   }
 
   onTemplateFileSelected(event: any) {
@@ -130,8 +130,79 @@ export class TemplatesComponent implements OnInit {
     });
   }
 
-  onTemplateDownload() {
+  onTemplateSelected(e: Event) {
+    console.log(e.target);
+    // @ts-ignore
+    if (e.target.id === 'template-download-link') {
+      return;
+    }
 
+    let target: any = e.currentTarget;
+    let id = target.dataset.templateId;
+    let selectedId = this.selectedTemplate && this.selectedTemplate.dataset.templateId;
+    if (id === selectedId) {
+      this.selectedTemplate = null;
+      target.classList.remove('selected');
+    } else {
+      if (this.selectedTemplate !== null) {
+        this.selectedTemplate.classList.remove('selected');
+      }
+      target.classList.add('selected');
+      this.selectedTemplate = target;
+    }
+  }
+  onDatasetSelected(e: Event) {
+    // @ts-ignore
+    if (e.target.id === 'dataset-download-link') {
+      return;
+    }
+
+    let target: any = e.currentTarget;
+    let id = target.dataset.datasetId;
+    let selectedId = this.selectedDataset && this.selectedDataset.dataset.datasetId;
+    if (id === selectedId) {
+      this.selectedDataset = null;
+      target.classList.remove('selected');
+    } else {
+      if (this.selectedDataset !== null) {
+        this.selectedDataset.classList.remove('selected');
+      }
+      target.classList.add('selected');
+      this.selectedDataset = target;
+    }
+  }
+
+  onTemplateDownload(e: Event, id: any, name: any) {
+    e.preventDefault();
+    this.downloadService.downloadTemplate(id).subscribe(response => {
+      if (response.ok && response.body) {
+        this.util.triggerDownload(response.body, name);
+      }
+    });
+  }
+
+  onDatasetDownload(e: Event, id: any, name: any) {
+    e.preventDefault();
+
+    this.downloadService.downloadDataset(id).subscribe(response => {
+      if (response.ok && response.body) {
+        this.util.triggerDownload(response.body, name);
+      }
+    })
+  }
+
+  onComposeDownload(e: Event) {
+    e.preventDefault();
+
+    if (this.lastComposed !== null) {
+      let id: any = this.lastComposed.id;
+      let name: any = this.lastComposed.name;
+      this.downloadService.downloadComposed(id).subscribe(response => {
+        if (response.ok && response.body) {
+          this.util.triggerDownload(response.body, name);
+        }
+      })
+    }
   }
 
   lookupFormat(format: string | null, type: 'dataset' | 'template') {
@@ -141,5 +212,15 @@ export class TemplatesComponent implements OnInit {
       }
     }
     return null;
+  }
+
+  onCompose() {
+    if (this.selectedTemplate !== null && this.selectedDataset !== null) {
+      let templateId = this.selectedTemplate.dataset.templateId;
+      let datasetId = this.selectedDataset.dataset.datasetId;
+      this.composeService.composeDocument(templateId, datasetId).subscribe(doc => {
+        this.lastComposed = doc;
+      });
+    }
   }
 }

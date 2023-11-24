@@ -4,6 +4,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../_services/user.service";
 import {TokenStorageService} from "../_services/token-storage.service";
 import {noWhitespaceValidator} from "../_helpers/validators";
+import {Router} from "@angular/router";
+import {ComposedDocument} from "../_model/composed-document";
+import {ComposeService} from "../_services/compose.service";
+import {UtilService} from "../_services/util.service";
+import {DownloadService} from "../_services/download.service";
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +25,8 @@ export class ProfileComponent implements OnInit {
 
   user?: User;
 
+  documents: Array<ComposedDocument> = [];
+
   userUpdate = new FormGroup({
     username: new FormControl('', [Validators.required,
       noWhitespaceValidator,
@@ -28,9 +35,15 @@ export class ProfileComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   })
 
-  constructor(private userService: UserService, private tokenService: TokenStorageService) { }
+  constructor(private router: Router, private userService: UserService, private util: UtilService,
+              private tokenService: TokenStorageService, private composeService: ComposeService,
+              private downloadService: DownloadService) { }
 
   ngOnInit(): void {
+    this.composeService.getDocuments().subscribe(doc => {
+      this.documents = doc;
+      this.util.sortEntities(this.documents, 'created', 'desc');
+    });
   }
 
   populateUser(user: User) {
@@ -90,9 +103,19 @@ export class ProfileComponent implements OnInit {
     e.preventDefault();
     if (this.user?.username) {
       this.userService.deleteUser(this.user.username).subscribe(result => {
-        window.location.href = '/login';
+        this.router.navigate(['/login']);
       })
     }
+  }
+
+  onComposeDownload(e: Event, id: any, name: any) {
+    e.preventDefault();
+
+    this.downloadService.downloadComposed(id).subscribe(response => {
+      if (response.ok && response.body) {
+        this.util.triggerDownload(response.body, name);
+      }
+    });
   }
 
   get username() {

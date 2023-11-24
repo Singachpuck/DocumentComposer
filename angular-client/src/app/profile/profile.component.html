@@ -4,6 +4,7 @@
     <aside class="col-2 settings-panel">
       <nav class="nav nav-tabs flex-column" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profile</button>
+        <button class="nav-link" id="nav-recent-tab" data-bs-toggle="tab" data-bs-target="#nav-recent" type="button" role="tab" aria-controls="nav-recent" aria-selected="false">History</button>
         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Danger Zone</button>
       </nav>
     </aside>
@@ -74,6 +75,40 @@
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+        <div class="tab-pane" id="nav-recent" role="tabpanel" aria-labelledby="nav-recent-tab">
+          <div class="recent-wrapper">
+            <h3 class="mb-4">Recent Documents</h3>
+            <table class="table" *ngIf="documents.length > 0">
+              <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Created</th>
+                <th scope="col">Size</th>
+                <th scope="col">Format</th>
+                <th scope="col">Template Ref.</th>
+                <th scope="col">Dataset Ref.</th>
+                <th class="text-center" scope="col">Download</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let doc of documents">
+                <td>{{doc.name}}</td>
+                <td>{{doc.created | date: 'short'}}</td>
+                <td>{{doc.size | sizeFormatter}}</td>
+                <td>{{doc.format}}</td>
+                <td>{{doc.templateId}}</td>
+                <td>{{doc.datasetId}}</td>
+                <td class="text-center">
+                  <a href="#" (click)="onComposeDownload($event, doc.id, doc.name)"><i class="bi bi-download"></i></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div *ngIf="documents.length === 0">
+              No composed documents yet. Go <a href="/templates">generate</a> some!
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

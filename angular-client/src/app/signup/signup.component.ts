@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../_services/auth.service";
 import {noWhitespaceValidator} from "../_helpers/validators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -22,7 +23,7 @@ export class SignupComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -38,7 +39,7 @@ export class SignupComponent implements OnInit {
       this.userCreate.get('email')?.value,
       this.userCreate.get('password')?.value)
       .subscribe(() => {
-        window.location.href = '/login';
+        this.router.navigate(['/login']);
       });
   }
 

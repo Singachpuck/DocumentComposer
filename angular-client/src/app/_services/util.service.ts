@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Buffer} from 'buffer';
+import {Template} from "../_model/template";
 
 const API_ENDPOINT = 'http://localhost:8080/api/v1/';
 const TEMPLATE_SUPPORTED_FORMATS = [
@@ -47,6 +48,38 @@ export class UtilService {
       reader.onerror = reject;
     })
   };
+
+  public sortEntities(collection: Array<any>, type: 'name' | 'created' | 'size', order: 'asc' | 'desc') {
+    if (type === 'name') {
+      // @ts-ignore
+      collection?.sort((a: Template, b: Template) => {
+        // @ts-ignore
+        return a.name?.localeCompare(b.name) * ('asc' === order ? 1 : -1);
+      });
+    } else if (type === 'created') {
+      collection?.sort((a: Template, b: Template) => {
+        // @ts-ignore
+        return (new Date(a.created).getTime() - new Date(b.created).getTime()) * ('asc' === order ? 1 : -1);
+      });
+    } else if (type === 'size') {
+      collection?.sort((a: Template, b: Template) => {
+        // @ts-ignore
+        return (a.size - b.size) * ('asc' === order ? 1 : -1);
+      });
+    }
+  }
+
+  // https://stackoverflow.com/questions/54753021/how-can-i-pass-an-auth-token-when-downloading-a-file
+  public triggerDownload(content: Blob, name: string) {
+    const url = URL.createObjectURL(content);
+
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = name || 'file';
+
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
 }
 
 export {

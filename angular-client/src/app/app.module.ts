@@ -16,6 +16,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {TemplatesComponent} from './templates/templates.component';
 import {SizeFormatterPipe} from './_helpers/size-formatter.pipe';
+import {xhrInterceptorProviders} from "./_helpers/xhr.interceptor";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import {SizeFormatterPipe} from './_helpers/size-formatter.pipe';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, xhrInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

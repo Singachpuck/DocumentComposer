@@ -6,14 +6,14 @@
       <div class="row">
         <div class="col-2 me-4"><span>Total: {{templates ? templates.length : 0}}</span></div>
         <div class="col-2 dropdown">
-          <span class="cursor-pointer dropdown-toggle" id="sortByDropDown" data-bs-toggle="dropdown" aria-expanded="false">Sort by</span>
-          <ul class="dropdown-menu" aria-labelledby="sortByDropDown">
-            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'name', 'asc')">Name Asc</a></li>
-            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'name', 'desc')">Name Desc</a></li>
-            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'created', 'asc')">Created Asc</a></li>
-            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'created', 'desc')">Created Desc</a></li>
-            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'size', 'asc')">Size Asc</a></li>
-            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'size', 'desc')">Size Desc</a></li>
+          <span class="cursor-pointer dropdown-toggle" id="sortTemplateByDropDown" data-bs-toggle="dropdown" aria-expanded="false">Sort by</span>
+          <ul class="dropdown-menu" aria-labelledby="sortTemplateByDropDown">
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'name', 'asc')">Name <i class="bi bi-sort-up"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'name', 'desc')">Name <i class="bi bi-sort-down"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'created', 'asc')">Created <i class="bi bi-sort-up"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'created', 'desc')">Created <i class="bi bi-sort-down"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'size', 'asc')">Size <i class="bi bi-sort-up"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onTemplateSortBy($event, 'size', 'desc')">Size <i class="bi bi-sort-down"></i></a></li>
           </ul>
         </div>
       </div>
@@ -93,10 +93,30 @@
       </div>
     </div>
   </article>
+  <article class="row dataset-panel pt-5 pb-4 px-4">
+    <div class="col-9">
+      <h4  class="mb-4">Datasets</h4>
+      <div class="row small">
+        <div class="col me-4"><span>Total: {{datasets ? datasets.length : 0}}</span></div>
+        <div class="col-2 dropdown">
+          <span class="cursor-pointer dropdown-toggle" id="sortDatasetByDropDown" data-bs-toggle="dropdown" aria-expanded="false">Sort by</span>
+          <ul class="dropdown-menu" aria-labelledby="sortDatasetByDropDown">
+            <li><a class="dropdown-item" href="#" (click)="onDatasetSortBy($event, 'name', 'asc')">Name <i class="bi bi-sort-up"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onDatasetSortBy($event, 'name', 'desc')">Name <i class="bi bi-sort-down"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onDatasetSortBy($event, 'created', 'asc')">Created <i class="bi bi-sort-up"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onDatasetSortBy($event, 'created', 'desc')">Created <i class="bi bi-sort-down"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onDatasetSortBy($event, 'size', 'asc')">Size <i class="bi bi-sort-up"></i></a></li>
+            <li><a class="dropdown-item" href="#" (click)="onDatasetSortBy($event, 'size', 'desc')">Size <i class="bi bi-sort-down"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
   <section class="templates-wrapper overflow-y-scroll">
     <div class="py-3">
-      <ul class="overflow-hidden">
-        <li class="row border-top border-bottom py-4" *ngFor="let template of templates">
+      <ul class="overflow-hidden template-list">
+        <li class="row border-top border-bottom py-4" [attr.data-template-id]="template.id"
+            (click)="onTemplateSelected($event)" *ngFor="let template of templates">
           <div class="col-2 d-grid">
             <div class="template-icon-wrapper">
               <i class="bi" [ngClass]="lookupFormat(template.format, 'template')?.iconClass"></i>
@@ -105,23 +125,41 @@
           <div class="col-8">
             <h3 class="mb-4">{{template.name}}</h3>
             <div class="row">
-              <div class="col">Created: {{template.created | date: 'short' }}</div>
+              <div class="col-5">Created: {{template.created | date: 'short' }}</div>
               <div class="col">Size: {{template.size | sizeFormatter}}</div>
+              <div class="col">
+                {{'' + template.beginEscapePlaceholder + template.beginTokenPlaceholder + '...' + template.endTokenPlaceholder + template.endEscapePlaceholder}}
+              </div>
             </div>
           </div>
           <div class="col-2 d-grid">
             <div class="template-view-icon-wrapper">
-              <a href="#" [attr.data-template-id]="template.id" (click)="onTemplateDownload()" ><i class="bi bi-download"></i></a>
+              <a href="#" (click)="onTemplateDownload($event, template.id, template.name)">
+                <i id="template-download-link" class="bi bi-download"></i>
+              </a>
             </div>
           </div>
         </li>
       </ul>
     </div>
   </section>
+  <section class="compose-wrapper">
+    <div class="text-center">
+      <button class="btn btn-primary mb-4" [ngClass]="[(selectedTemplate === null || selectedDataset === null) ? 'disabled' : '']"
+        (click)="onCompose()">
+        <i class="bi bi-gear"></i> Compose
+      </button>
+      <button class="btn btn-primary" [ngClass]="[(lastComposed === null) ? 'd-none' : '']"
+              (click)="onComposeDownload($event)">
+        <i class="bi bi-download"></i> Download
+      </button>
+    </div>
+  </section>
   <aside class="datasets-wrapper">
     <div class="pt-3">
       <ul class="overflow-hidden overflow-y-scroll">
-        <li class="row dataset border-top border-bottom py-2" *ngFor="let dataset of datasets">
+        <li class="row dataset border-top border-bottom py-2" [attr.data-dataset-id]="dataset.id"
+            (click)="onDatasetSelected($event)" *ngFor="let dataset of datasets">
           <div class="col-3 d-grid">
             <div class="dataset-icon-wrapper">
               <i class="bi" [ngClass]="lookupFormat(dataset.format, 'dataset')?.iconClass"></i>
@@ -136,7 +174,9 @@
           </div>
           <div class="col-3 d-grid">
             <div class="dataset-view-icon-wrapper">
-              <a [href]="'/download/datasets/' + dataset.id" ><i class="bi bi-download"></i></a>
+              <a href="#" (click)="onDatasetDownload($event, dataset.id, dataset.name)">
+                <i id="dataset-download-link" class="bi bi-download"></i>
+              </a>
             </div>
           </div>
         </li>
