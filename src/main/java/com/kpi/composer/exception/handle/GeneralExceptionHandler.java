@@ -1,6 +1,7 @@
 package com.kpi.composer.exception.handle;
 
 import com.kpi.composer.exception.EntityException;
+import com.kpi.composer.exception.ExpressionParseException;
 import com.kpi.composer.exception.MaxNumberExceededException;
 import com.kpi.composer.exception.NotOwnerException;
 import com.kpi.composer.model.message.DefaultErrorMessage;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({EntityException.class})
+    @ExceptionHandler({EntityException.class, ExpressionParseException.class})
     ResponseEntity<Object> entityError(Exception exception, WebRequest request) {
         final DefaultErrorMessage message = new DefaultErrorMessage(HttpStatus.BAD_REQUEST.getReasonPhrase(), exception.getMessage());
         return this.handleExceptionInternal(exception,

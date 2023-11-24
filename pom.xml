@@ -21,6 +21,9 @@
 		<jempbox.version>1.8.17</jempbox.version>
 		<apache.poi.version>5.2.3</apache.poi.version>
 		<jjwt.version>0.11.5</jjwt.version>
+		<frontend.plugin.version>1.14.2</frontend.plugin.version>
+		<node.version>v16.17.1</node.version>
+		<npm.version>8.15.0</npm.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -145,6 +148,41 @@
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
+			</plugin>
+
+<!--			Builds angular app-->
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>${frontend.plugin.version}</version>
+				<configuration>
+					<workingDirectory>./angular-client</workingDirectory>
+					<nodeVersion>${node.version}</nodeVersion>
+					<npmVersion>${npm.version}</npmVersion>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm run build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

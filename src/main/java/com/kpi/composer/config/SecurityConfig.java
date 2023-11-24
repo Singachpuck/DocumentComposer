@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -60,6 +61,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                                 "/api/v1/auth/token"
                         )
                         .hasAuthority(Authorities.DEFAULT.getAuthority().getAuthority())
+                        .anyRequest()
+                        .permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());
 
@@ -80,8 +83,9 @@ public class SecurityConfig implements WebMvcConfigurer {
         return ap;
     }
 
-    @Bean
-    WebSecurityCustomizer customizer() {
-        return web -> web.ignoring().requestMatchers("/css/**", "/js/**");
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        WebMvcConfigurer.super.addViewControllers(registry);
+        registry.addViewController("/{path:[^\\.]*}").setViewName("forward:/");
     }
 }

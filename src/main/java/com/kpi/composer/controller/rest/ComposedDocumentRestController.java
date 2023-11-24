@@ -29,6 +29,11 @@ public class ComposedDocumentRestController {
         return ResponseEntity.ok(composeService.findDtoById(composeId));
     }
 
+    @GetMapping("/user/{username}")
+    ResponseEntity<?> getByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(composeService.findByOwner(username));
+    }
+
     @PostMapping
     ResponseEntity<?> compose(@RequestBody ComposedDocumentDto documentDto) {
         final ComposedDocumentDto composedDocument = composeService.composeAndSave(documentDto.getTemplateId(),
