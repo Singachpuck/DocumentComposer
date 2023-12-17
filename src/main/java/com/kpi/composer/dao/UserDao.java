@@ -1,10 +1,12 @@
 package com.kpi.composer.dao;
 
 import com.kpi.composer.model.entities.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
 
+@Transactional
 public interface UserDao {
 
     Optional<User> findById(Long id);

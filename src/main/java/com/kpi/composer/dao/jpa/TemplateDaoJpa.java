@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 @Repository
-@Transactional
 public interface TemplateDaoJpa extends TemplateDao, CrudRepository<Template, Long> {
 
     @Query(value = "select t from Template t where t.owner.username = ?1")
