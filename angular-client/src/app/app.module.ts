@@ -17,6 +17,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TemplatesComponent} from './templates/templates.component';
 import {SizeFormatterPipe} from './_helpers/size-formatter.pipe';
 import {xhrInterceptorProviders} from "./_helpers/xhr.interceptor";
+import {NotificationComponent} from './notification/notification.component';
+import {NgOptimizedImage} from "@angular/common";
+import {HighlightModule} from "ngx-highlightjs";
+import {highlightsProvider} from "./_helpers/hightlights";
 
 @NgModule({
   declarations: [
@@ -30,15 +34,18 @@ import {xhrInterceptorProviders} from "./_helpers/xhr.interceptor";
     HomeComponent,
     NotFoundComponent,
     TemplatesComponent,
-    SizeFormatterPipe
+    SizeFormatterPipe,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgOptimizedImage,
+    HighlightModule
   ],
-  providers: [authInterceptorProviders, xhrInterceptorProviders],
+  providers: [authInterceptorProviders, xhrInterceptorProviders, highlightsProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,20 +1,20 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {
-    DATASET_SUPPORTED_FORMATS,
-    DEFAULT_ESCAPE_PLACEHOLDER,
-    DEFAULT_TOKEN_PLACEHOLDER,
-    TEMPLATE_SUPPORTED_FORMATS,
-    UtilService
+  DATASET_SUPPORTED_FORMATS,
+  DEFAULT_ESCAPE_PLACEHOLDER,
+  DEFAULT_TOKEN_PLACEHOLDER,
+  TEMPLATE_SUPPORTED_FORMATS,
+  UtilService
 } from "../_services/util.service";
 import {Template} from "../_model/template";
 import {TemplateService} from "../_services/template.service";
 import {Dataset} from "../_model/dataset";
 import {DatasetService} from "../_services/dataset.service";
 import {DownloadService} from "../_services/download.service";
-import {HttpResponse} from "@angular/common/http";
 import {ComposeService} from "../_services/compose.service";
 import {ComposedDocument} from "../_model/composed-document";
+import {NotificationService} from "../_services/notification.service";
 
 @Component({
   selector: 'app-templates',
@@ -61,7 +61,7 @@ export class TemplatesComponent implements OnInit {
 
   constructor(private util: UtilService, private templateService: TemplateService,
               private datasetService: DatasetService, private downloadService: DownloadService,
-              private composeService: ComposeService) { }
+              private composeService: ComposeService, private notification: NotificationService) { }
 
   ngOnInit(): void {
     this.acceptFiles = this.formats.map(i => i.media).join(',');
@@ -113,8 +113,11 @@ export class TemplatesComponent implements OnInit {
     template.endEscapePlaceholder = this.addTemplate.get('endEscapePlaceholder')?.value;
     template.bytes = await this.util.toBase64(this.newTemplateFile?.nativeElement.files[0]);
 
-    this.templateService.createTemplate(template).subscribe(() => {
-      window.location.reload();
+    this.templateService.createTemplate(template).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: this.notification.defaultErrorHandler
     });
   }
 
@@ -125,18 +128,15 @@ export class TemplatesComponent implements OnInit {
     dataset.format = this.addDataset.get('format')?.value;
     dataset.bytes = await this.util.toBase64(this.newDatasetFile?.nativeElement.files[0]);
 
-    this.datasetService.createDataset(dataset).subscribe(() => {
-      window.location.reload();
+    this.datasetService.createDataset(dataset).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: this.notification.defaultErrorHandler
     });
   }
 
   onTemplateSelected(e: Event) {
-    console.log(e.target);
-    // @ts-ignore
-    if (e.target.id === 'template-download-link') {
-      return;
-    }
-
     let target: any = e.currentTarget;
     let id = target.dataset.templateId;
     let selectedId = this.selectedTemplate && this.selectedTemplate.dataset.templateId;
@@ -152,11 +152,6 @@ export class TemplatesComponent implements OnInit {
     }
   }
   onDatasetSelected(e: Event) {
-    // @ts-ignore
-    if (e.target.id === 'dataset-download-link') {
-      return;
-    }
-
     let target: any = e.currentTarget;
     let id = target.dataset.datasetId;
     let selectedId = this.selectedDataset && this.selectedDataset.dataset.datasetId;
@@ -174,20 +169,27 @@ export class TemplatesComponent implements OnInit {
 
   onTemplateDownload(e: Event, id: any, name: any) {
     e.preventDefault();
-    this.downloadService.downloadTemplate(id).subscribe(response => {
-      if (response.ok && response.body) {
-        this.util.triggerDownload(response.body, name);
-      }
+    e.stopPropagation();
+    this.downloadService.downloadTemplate(id).subscribe({
+      next: response => {
+        if (response.ok && response.body) {
+          this.util.triggerDownload(response.body, name);
+        }
+      },
+      error: this.notification.defaultErrorHandler
     });
   }
 
   onDatasetDownload(e: Event, id: any, name: any) {
     e.preventDefault();
-
-    this.downloadService.downloadDataset(id).subscribe(response => {
-      if (response.ok && response.body) {
-        this.util.triggerDownload(response.body, name);
-      }
+    e.stopPropagation();
+    this.downloadService.downloadDataset(id).subscribe({
+      next: response => {
+        if (response.ok && response.body) {
+          this.util.triggerDownload(response.body, name);
+        }
+      },
+      error: this.notification.defaultErrorHandler
     })
   }
 
@@ -197,10 +199,13 @@ export class TemplatesComponent implements OnInit {
     if (this.lastComposed !== null) {
       let id: any = this.lastComposed.id;
       let name: any = this.lastComposed.name;
-      this.downloadService.downloadComposed(id).subscribe(response => {
-        if (response.ok && response.body) {
-          this.util.triggerDownload(response.body, name);
-        }
+      this.downloadService.downloadComposed(id).subscribe({
+        next: response => {
+          if (response.ok && response.body) {
+            this.util.triggerDownload(response.body, name);
+          }
+        },
+        error: this.notification.defaultErrorHandler
       })
     }
   }
@@ -218,9 +223,30 @@ export class TemplatesComponent implements OnInit {
     if (this.selectedTemplate !== null && this.selectedDataset !== null) {
       let templateId = this.selectedTemplate.dataset.templateId;
       let datasetId = this.selectedDataset.dataset.datasetId;
-      this.composeService.composeDocument(templateId, datasetId).subscribe(doc => {
-        this.lastComposed = doc;
+      this.composeService.composeDocument(templateId, datasetId).subscribe({
+        next: doc => {
+          this.lastComposed = doc;
+        },
+        error: this.notification.defaultErrorHandler
       });
     }
+  }
+
+  onTemplateDelete(id: any) {
+    this.templateService.deleteTemplate(id).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: this.notification.defaultErrorHandler
+    });
+  }
+
+  onDatasetDelete(id: any) {
+    this.datasetService.deleteDataset(id).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: this.notification.defaultErrorHandler
+    });
   }
 }

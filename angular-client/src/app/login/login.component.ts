@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../_services/auth.service";
 import {TokenStorageService} from "../_services/token-storage.service";
 import {Router} from "@angular/router";
+import {NotificationService} from "../_services/notification.service";
+import {Notification, NotificationType} from "../_model/notification";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private router: Router, private authService: AuthService, private tokenService: TokenStorageService) { }
+  constructor(private router: Router, private authService: AuthService,
+              private tokenService: TokenStorageService, private notification: NotificationService) { }
 
   ngOnInit(): void {
   }
@@ -31,10 +34,16 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.userForm.get('username')?.value, this.userForm.get('password')?.value)
-      .subscribe((token: any) => {
-        this.tokenService.saveToken(token);
-        this.router.navigate(['/templates']);
-    });
+      .subscribe({
+        next: (token: any) => {
+          this.tokenService.saveToken(token);
+          this.router.navigate(['/templates']);
+        },
+        error: err => {
+          let error = new Notification(err.status === 401 ? '401 Unauthorized' : err.error, NotificationType.ERROR);
+          this.notification.publish(error);
+        }
+      });
   }
 
   get username() {

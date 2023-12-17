@@ -1,5 +1,185 @@
+<app-notification></app-notification>
 <app-full-screen>
-  <app-header></app-header>
-  <p>Home page</p>
+  <app-header [displayControls]="true"></app-header>
+  <header class="masterhead py-5">
+    <div class="container text-center col-8">
+      <img ngSrc="/assets/img/logo/logo-blue-big.png" alt="Logo" height="128" width="128">
+      <h1>Generate your documents with Document Composer</h1>
+      <p class="lead mb-4">
+        Powerful tool for document composition. Store conveniently your <b>templates</b> and <b>datasets</b>.
+        Apply some <b>magic</b> to turn <b>placeholders</b> in your template into the actual <b>data</b> from dataset.
+      </p>
+      <div class="references">
+        <a href="/templates" class="btn btn-lg btn-primary me-3 fw-semibold"><i class="bi bi-file-earmark-text"></i> Access my templates</a>
+        <a href="/profile" class="btn btn-lg btn-primary fw-semibold"><i class="bi bi-person-circle"></i> Access my profile</a>
+      </div>
+    </div>
+  </header>
+  <section id="quickstart" class="py-5">
+    <div class="container">
+      <h1 class="display-5 fw-semibold mb-4">Quick start guide</h1>
+      <p class="lead fw-normal">Follow the steps below.</p>
+      <div class="carousel-wrapper">
+        <div class="carousel-frame">
+          <div id="carouselGuide" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="0" class="active"
+                      aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="3"
+                      aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="4"
+                      aria-label="Slide 5"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="5"
+                      aria-label="Slide 6"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="6"
+                      aria-label="Slide 7"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="7"
+                      aria-label="Slide 8"></button>
+              <button type="button" data-bs-target="#carouselGuide" data-bs-slide-to="8"
+                      aria-label="Slide 9"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="image-wrapper">
+                  <img src="/assets/img/guide/signup.png" class="d-block w-100" alt="Signup">
+                </div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Signup</h5>
+                  <p>Create your own account.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/login.png" class="d-block w-100" alt="Login"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Login</h5>
+                  <p>Login to your account with valid credentials.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/template_preparation.png" class="d-block w-100" alt="Template"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Prepare your template</h5>
+                  <p>It might take some time. Think about the most appropriate placeholder that you will use.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/dataset_preparation.png" class="d-block w-100" alt="Dataset"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Prepare your dataset</h5>
+                  <p>Fill up the dataset with desired values.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/add_template.png" class="d-block w-100" alt="Add Template"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Add template</h5>
+                  <p>Click on the "Add Template" button.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/add_dataset.png" class="d-block w-100" alt="Add Dataset"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Add Dataset</h5>
+                  <p>Click on the "Add" button below Dataset panel.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/select_template_dataset.png" class="d-block w-100" alt="Select"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Make your choice</h5>
+                  <p>Click on the template and the dataset.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/compose_and_download.png" class="d-block w-100" alt="Compose"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Hit the "Compose" button</h5>
+                  <p>Compose a document and download if you wish.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="image-wrapper"><img src="/assets/img/guide/compose_result.png" class="d-block w-100" alt="Result"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Observe the result!</h5>
+                  <p>Document is composed.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselGuide"
+                    data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselGuide"
+                    data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="placeholders" class="pt-5">
+    <div class="container">
+      <h1 class="display-5 fw-semibold mb-4">Customize your placeholders</h1>
+      <p class="lead fw-normal">
+        We provide support for dynamic placeholders. Choose placeholder according to your preference while uploading your template.
+      </p>
+      <div class="highlight">
+        <pre tabindex="0"><code [highlight]="placeholdersExample" [languages]="['text']"></code></pre>
+      </div>
+    </div>
+  </section>
+  <section id="preprocessing" class="py-5">
+    <div class="container">
+      <h1 class="display-5 fw-semibold mb-4">We support template preprocessing</h1>
+      <div class="features lead fw-normal row">
+        <div class="col">
+          <h4>Make use of basic operations:</h4>
+          <div class="highlight">
+            <pre tabindex="0"><code [highlight]="basicExample" [languages]="['text']"></code></pre>
+          </div>
+        </div>
+        <div class="col">
+          <h4>Group your expressions:</h4>
+          <div class="highlight">
+            <pre tabindex="0"><code [highlight]="groupExample" [languages]="['text']"></code></pre>
+          </div>
+        </div>
+        <div class="col">
+          <h4>Use literals:</h4>
+          <div class="highlight">
+            <pre tabindex="0"><code [highlight]="literalsExample" [languages]="['text']"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="author" class="py-5">
+    <div class="container">
+      <h1 class="display-5 fw-semibold mb-5">About the author</h1>
+      <div class="row">
+        <div class="author-image col-3">
+          <div class="author-image-wrapper">
+            <img src="/assets/img/author/author-main.jpg" alt="Author Photo">
+          </div>
+        </div>
+        <div class="col-4 my-auto">
+          <h2 class="card-title mb-2">Dmytro Ochkas</h2>
+          <h6 class="card-subtitle mb-2 text-muted">Software, IoT Engineer</h6>
+          <p class="card-text">
+            More than <b>3 years</b> in Software Development.
+            Created multiple pet projects with different thematics: from <b>Web apps</b> to <b>Smart Window</b>.
+            Got Master Degree at 21 y.o.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
   <app-footer></app-footer>
 </app-full-screen>

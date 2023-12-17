@@ -1,0 +1,85 @@
+.masterhead h1 {
+  font-size: 4rem;
+}
+
+.masterhead .lead {
+  font-size: 1.5rem;
+}
+
+.references a {
+  padding: 1rem 2rem;
+}
+
+#carouselGuide > button::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-frame {
+  display: grid;
+  place-items: center;
+  width: 960px;
+  height: 540px;
+}
+
+.carousel .carousel-item {
+  position: relative;
+}
+
+.carousel .carousel-item::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.image-wrapper {
+  position: relative;
+  width: 960px;
+  height: 540px;
+}
+
+.image-wrapper img {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.author-image {
+  display: flex;
+  justify-content: end;
+}
+
+.author-image-wrapper {
+  position: relative;
+  border-radius: 50%;
+  overflow: clip;
+  width: 250px;
+  height: 250px;
+}
+
+.author-image-wrapper > img {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-55%) translateY(-50%);
+}

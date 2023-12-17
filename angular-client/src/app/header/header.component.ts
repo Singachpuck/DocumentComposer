@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
 
   @Input() requestUser: boolean = false;
 
+  @Input() displayControls: boolean = false;
+
   @Output() userEvent = new EventEmitter<User> ();
 
   user?: User;
@@ -23,9 +25,14 @@ export class HeaderComponent implements OnInit {
     if (this.requestUser) {
       let username = this.tokenService.getUsername();
       if (username !== null) {
-        this.userService.getUserByUsername(username).subscribe(user => {
-          this.user = user;
-          this.userEvent.emit(user);
+        this.userService.getUserByUsername(username).subscribe({
+          next: user => {
+            this.user = user;
+            this.userEvent.emit(user);
+          },
+          error: () => {
+            this.router.navigate(['/login']);
+          }
         });
       }
     }

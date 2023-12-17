@@ -10,8 +10,9 @@
 
 .templates-content {
   display: grid;
-  grid-template-columns: [first-col] 6fr [second-col] 1fr [third-col] 2fr [forth-col];
+  grid-template-columns: [first-col] 11fr [second-col] 2fr [third-col] 5fr [forth-col];
   grid-template-rows: [first-row] 200px [second-row] 500px [third-row];
+  padding-bottom: 50px;
 }
 
 .templates-panel {
@@ -38,6 +39,12 @@
 
   border: 1px solid grey;
   border-radius: 10px;
+}
+
+.template-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /*padding: 0!important;*/
 }
 
 .compose-wrapper {
@@ -67,9 +74,17 @@
   place-self: center;
 }
 
-.template-icon-wrapper, .template-view-icon-wrapper {
+.template-icon-wrapper, .template-view-icon-wrapper, .template-trash-icon-wrapper {
   font-size: 2rem;
   place-self: center;
+}
+
+.template-trash-icon-wrapper > span, .dataset-trash-icon-wrapper > span {
+  cursor: pointer;
+}
+
+.template-trash-icon-wrapper > span:hover, .dataset-trash-icon-wrapper > span:hover {
+  opacity: .8;
 }
 
 .datasets-wrapper > div {
@@ -78,7 +93,7 @@
   grid-template-rows: 6fr 1fr;
 }
 
-.dataset-icon-wrapper, .dataset-view-icon-wrapper {
+.dataset-icon-wrapper, .dataset-view-icon-wrapper, .dataset-trash-icon-wrapper {
   font-size: 1rem;
   place-self: center;
 }
@@ -87,11 +102,10 @@
   font-size: 12px;
 }
 
-.dataset * {
-  padding: 0!important;
-}
-
 .add-dataset-wrapper {
   display: grid;
-  /*place-items: stretch;*/
+}
+
+#deleteTemplateModal, #deleteDatasetModal {
+  color: #000;
 }

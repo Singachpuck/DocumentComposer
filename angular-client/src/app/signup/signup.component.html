@@ -1,8 +1,9 @@
+<app-notification></app-notification>
 <app-full-screen>
-  <app-header></app-header>
+  <app-header [displayControls]="true"></app-header>
   <section class="container form-container">
     <div class="form-wrapper">
-      <form action="#" [formGroup]="userCreate" (ngSubmit)="onUserCreate()">
+      <form action="#" [formGroup]="userCreate" (ngSubmit)="onUserCreate()" autocomplete="off">
         <fieldset>
           <legend>Sign up</legend>
           <div class="mb-3">

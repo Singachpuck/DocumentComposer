@@ -1,0 +1,9 @@
+.links-nav > ul {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.links-nav .nav-link {
+  --bs-nav-link-hover-color: #dcdcdc;
+}

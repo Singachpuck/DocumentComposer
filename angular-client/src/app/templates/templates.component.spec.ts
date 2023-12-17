@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TemplatesComponent } from './templates.component';
+import {TemplatesComponent} from './templates.component';
 
 describe('TemplatesComponent', () => {
   let component: TemplatesComponent;

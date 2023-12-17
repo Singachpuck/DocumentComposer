@@ -7,6 +7,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  year = 2023;
+  ownerEmail = 'ochkasdmytro@gmail.com';
+  ownerGithub = 'https://github.com/Singachpuck/DocumentComposer';
+  ownerLinkedIn = 'https://www.linkedin.com/in/dmytro-ochkas/';
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { ComposedDocument } from './composed-document';
+import {ComposedDocument} from './composed-document';
 
 describe('ComposedDocument', () => {
   it('should create an instance', () => {

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { XhrInterceptor } from './xhr.interceptor';
+import {XhrInterceptor} from './xhr.interceptor';
 
 describe('XhrInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({

@@ -24,4 +24,8 @@ export class DatasetService {
     let username = this.tokenService.getUsername();
     return this.http.get<Array<Dataset>>(API_ENDPOINT + 'datasets/user/' + username);
   }
+
+  deleteDataset(id: any) {
+    return this.http.delete(API_ENDPOINT + 'datasets/' + id);
+  }
 }

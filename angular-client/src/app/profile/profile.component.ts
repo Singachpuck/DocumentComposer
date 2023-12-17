@@ -9,6 +9,7 @@ import {ComposedDocument} from "../_model/composed-document";
 import {ComposeService} from "../_services/compose.service";
 import {UtilService} from "../_services/util.service";
 import {DownloadService} from "../_services/download.service";
+import {NotificationService} from "../_services/notification.service";
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +38,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService, private util: UtilService,
               private tokenService: TokenStorageService, private composeService: ComposeService,
-              private downloadService: DownloadService) { }
+              private downloadService: DownloadService, private notification: NotificationService) { }
 
   ngOnInit(): void {
     this.composeService.getDocuments().subscribe(doc => {
@@ -60,9 +61,12 @@ export class ProfileComponent implements OnInit {
     let user: User = new User();
     user.username = this.userUpdate.get('username')?.value || '';
     if (this.user?.username) {
-      this.userService.updateUser(this.user?.username, user).subscribe(result => {
-        this.tokenService.setUsername(result.username);
-        window.location.reload();
+      this.userService.updateUser(this.user?.username, user).subscribe({
+        next: result => {
+          this.tokenService.setUsername(result.username);
+          window.location.reload();
+        },
+        error: this.notification.defaultErrorHandler
       });
     }
   }
@@ -77,8 +81,10 @@ export class ProfileComponent implements OnInit {
     let user: User = new User();
     user.email = this.userUpdate.get('email')?.value || '';
     if (this.user?.username) {
-      this.userService.updateUser(this.user?.username, user).subscribe(result => {
-        window.location.reload();
+      this.userService.updateUser(this.user?.username, user).subscribe({
+        next: result => {
+          window.location.reload();
+        }, error: this.notification.defaultErrorHandler
       });
     }
   }
@@ -93,8 +99,10 @@ export class ProfileComponent implements OnInit {
     let user: User = new User();
     user.password = this.userUpdate.get('password')?.value || '';
     if (this.user?.username) {
-      this.userService.updateUser(this.user?.username, user).subscribe(result => {
-        window.location.reload();
+      this.userService.updateUser(this.user?.username, user).subscribe({
+        next: result => {
+          window.location.reload();
+        }, error: this.notification.defaultErrorHandler
       });
     }
   }
@@ -102,8 +110,11 @@ export class ProfileComponent implements OnInit {
   onDeleteAccount(e: Event) {
     e.preventDefault();
     if (this.user?.username) {
-      this.userService.deleteUser(this.user.username).subscribe(result => {
-        this.router.navigate(['/login']);
+      this.userService.deleteUser(this.user.username).subscribe({
+        next: result => {
+          this.router.navigate(['/login']);
+        },
+        error: this.notification.defaultErrorHandler
       })
     }
   }
@@ -111,10 +122,13 @@ export class ProfileComponent implements OnInit {
   onComposeDownload(e: Event, id: any, name: any) {
     e.preventDefault();
 
-    this.downloadService.downloadComposed(id).subscribe(response => {
-      if (response.ok && response.body) {
-        this.util.triggerDownload(response.body, name);
-      }
+    this.downloadService.downloadComposed(id).subscribe({
+      next: response => {
+        if (response.ok && response.body) {
+          this.util.triggerDownload(response.body, name);
+        }
+      },
+      error: this.notification.defaultErrorHandler
     });
   }
 

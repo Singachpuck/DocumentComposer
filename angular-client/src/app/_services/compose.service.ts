@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Template} from "../_model/template";
 import {API_ENDPOINT} from "./util.service";
 import {Observable} from "rxjs";
 import {TokenStorageService} from "./token-storage.service";
@@ -23,5 +22,9 @@ export class ComposeService {
   getDocuments(): Observable<Array<ComposedDocument>> {
     let username = this.tokenService.getUsername();
     return this.http.get<Array<ComposedDocument>>(API_ENDPOINT + 'compose/user/' + username);
+  }
+
+  deleteDocument(id: any) {
+    return this.http.delete(API_ENDPOINT + 'compose/' + id);
   }
 }

@@ -1,6 +1,15 @@
 ul {
   padding: 0 !important;
   margin: 0 !important;
+  list-style: none;
+}
+
+pre {
+  margin: 0 !important;
+}
+
+code {
+  border-radius: 10px;
 }
 
 .cursor-pointer {

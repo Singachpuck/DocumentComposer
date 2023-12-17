@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FullScreenComponent } from './full-screen.component';
+import {FullScreenComponent} from './full-screen.component';
 
 describe('FullScreenComponent', () => {
   let component: FullScreenComponent;

@@ -24,4 +24,8 @@ export class TemplateService {
     let username = this.tokenService.getUsername();
     return this.http.get<Array<Template>>(API_ENDPOINT + 'templates/user/' + username);
   }
+
+  deleteTemplate(id: any) {
+    return this.http.delete(API_ENDPOINT + 'templates/' + id);
+  }
 }

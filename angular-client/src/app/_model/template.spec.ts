@@ -1,4 +1,4 @@
-import { Template } from './template';
+import {Template} from './template';
 
 describe('Template', () => {
   it('should create an instance', () => {

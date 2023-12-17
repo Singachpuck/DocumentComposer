@@ -1,8 +1,9 @@
+<app-notification></app-notification>
 <app-header [requestUser]="true" (userEvent)="populateUser($event)"></app-header>
-<section class="container pt-5">
+<section class="container profile pt-5">
   <div class="row settings-wrapper">
     <aside class="col-2 settings-panel">
-      <nav class="nav nav-tabs flex-column" id="nav-tab" role="tablist">
+      <nav class="nav nav-tabs flex-column setting-panel-nav" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profile</button>
         <button class="nav-link" id="nav-recent-tab" data-bs-toggle="tab" data-bs-target="#nav-recent" type="button" role="tab" aria-controls="nav-recent" aria-selected="false">History</button>
         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Danger Zone</button>
@@ -98,8 +99,8 @@
                 <td>{{doc.created | date: 'short'}}</td>
                 <td>{{doc.size | sizeFormatter}}</td>
                 <td>{{doc.format}}</td>
-                <td>{{doc.templateId}}</td>
-                <td>{{doc.datasetId}}</td>
+                <td>{{doc.templateId || '-'}}</td>
+                <td>{{doc.datasetId || '-'}}</td>
                 <td class="text-center">
                   <a href="#" (click)="onComposeDownload($event, doc.id, doc.name)"><i class="bi bi-download"></i></a>
                 </td>
