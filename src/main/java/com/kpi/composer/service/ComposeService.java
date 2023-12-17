@@ -99,6 +99,11 @@ public class ComposeService {
         return fileMapper.composedToDto(composedDocumentDao.save(composedDocument));
     }
 
+    public void delete(Long id) {
+        this.findById(id);
+        composedDocumentDao.deleteById(id);
+    }
+
     private String getCurrentUsername() {
         return auth.getAuthentication().getName();
     }

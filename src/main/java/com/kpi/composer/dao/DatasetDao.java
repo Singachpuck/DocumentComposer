@@ -16,4 +16,6 @@ public interface DatasetDao {
     Dataset save(Dataset dataset);
 
     long count(String owner);
+
+    void deleteById(Long id);
 }

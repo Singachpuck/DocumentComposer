@@ -1,11 +1,11 @@
 package com.kpi.composer.model.entities;
 
 import com.kpi.composer.model.SupportedFormats;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,4 +26,12 @@ public class Template extends FileEntity {
 
     @Column
     private String endEscapePlaceholder;
+
+    @OneToMany(mappedBy = "template", fetch = FetchType.LAZY)
+    private List<ComposedDocument> documents;
+
+    @PreRemove
+    private void setNullOnDelete() {
+        documents.forEach(doc -> doc.setTemplate(null));
+    }
 }

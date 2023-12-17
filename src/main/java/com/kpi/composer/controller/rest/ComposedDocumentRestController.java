@@ -49,4 +49,13 @@ public class ComposedDocumentRestController {
                 .created(location)
                 .body(composedDocument);
     }
+
+    @DeleteMapping("/{composeId}")
+    ResponseEntity<?> delete(@PathVariable long composeId) {
+        composeService.delete(composeId);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }

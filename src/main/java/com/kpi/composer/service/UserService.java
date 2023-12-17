@@ -8,6 +8,7 @@ import com.kpi.composer.model.entities.User;
 import com.kpi.composer.service.mapper.UserMapper;
 import com.kpi.composer.service.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,19 @@ public class UserService {
 
     private final AuthenticationFacade auth;
 
+    @Value("${entity.user.max-number}")
+    private long userMaxCount;
+
     public UserDto create(UserDto userDto) {
+        if (userDao.existsByUsername(userDto.getUsername())) {
+            throw new EntityException("Username is already taken.");
+        }
+        if (userDao.existsByEmail(userDto.getEmail())) {
+            throw new EntityException("Email is already taken.");
+        }
+        if (userDao.count() >= userMaxCount) {
+            throw new EntityException("Max number of users exceeded. Contact an administrator for further information.");
+        }
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userMapper.userToDto(userDao.save(userMapper.dtoToUser(userDto)));
     }
@@ -43,11 +56,17 @@ public class UserService {
             if (result.hasFieldErrors("username")) {
                 throw new EntityException(this.findErrorMessage("username", result));
             }
+            if (userDao.existsByUsername(userDto.getUsername())) {
+                throw new EntityException("Username is already taken.");
+            }
             user.setUsername(userDto.getUsername());
         }
         if (userDto.getEmail() != null) {
             if (result.hasFieldErrors("email")) {
                 throw new EntityException(this.findErrorMessage("email", result));
+            }
+            if (userDao.existsByEmail(userDto.getEmail())) {
+                throw new EntityException("Email is already taken.");
             }
             user.setEmail(userDto.getEmail());
         }

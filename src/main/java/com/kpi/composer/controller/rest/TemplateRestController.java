@@ -51,4 +51,13 @@ public class TemplateRestController {
                 .created(location)
                 .body(template);
     }
+
+    @DeleteMapping("/{templateId}")
+    ResponseEntity<?> delete(@PathVariable long templateId) {
+        templateService.delete(templateId);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }

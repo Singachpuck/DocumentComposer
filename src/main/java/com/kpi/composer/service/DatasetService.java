@@ -77,6 +77,11 @@ public class DatasetService {
         return fileMapper.datasetToDto(datasetDao.save(fileMapper.dtoToDataset(fileDto, owner)));
     }
 
+    public void delete(Long id) {
+        this.findById(id);
+        datasetDao.deleteById(id);
+    }
+
     private String getCurrentUsername() {
         return auth.getAuthentication().getName();
     }

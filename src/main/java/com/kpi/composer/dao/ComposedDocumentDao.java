@@ -17,6 +17,7 @@ public interface ComposedDocumentDao {
 
     long count(String owner);
 
-
     void deleteLast(String owner);
+
+    void deleteById(Long id);
 }

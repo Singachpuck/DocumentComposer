@@ -16,4 +16,6 @@ public interface TemplateDao {
     Template save(Template template);
 
     long count(String owner);
+
+    void deleteById(Long id);
 }

@@ -77,6 +77,11 @@ public class TemplateService {
         return fileMapper.templateToDto(this.findById(templateId));
     }
 
+    public void delete(Long id) {
+        this.findById(id);
+        templateDao.deleteById(id);
+    }
+
     private String getCurrentUsername() {
         return auth.getAuthentication().getName();
     }

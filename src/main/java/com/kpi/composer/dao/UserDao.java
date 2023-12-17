@@ -17,5 +17,9 @@ public interface UserDao {
 
     boolean existsByUsername(String username);
 
+    boolean existsByEmail(String email);
+
     void deleteByUsername(String username);
+
+    long count();
 }

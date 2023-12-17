@@ -51,4 +51,13 @@ public class DatasetRestController {
                 .created(location)
                 .body(dataset);
     }
+
+    @DeleteMapping("/{datasetId}")
+    ResponseEntity<?> delete(@PathVariable long datasetId) {
+        datasetService.delete(datasetId);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
 }
