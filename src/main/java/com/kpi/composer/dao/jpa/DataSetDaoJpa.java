@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 @Repository
-@Transactional
 public interface DataSetDaoJpa extends DatasetDao, CrudRepository<Dataset, Long> {
 
     @Query(value = "select d from Dataset d where d.owner.username = ?1")

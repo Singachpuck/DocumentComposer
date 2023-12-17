@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 @Repository
-@Transactional
 public interface ComposedDocumentDaoJpa extends ComposedDocumentDao, CrudRepository<ComposedDocument, Long> {
 
     @Query("select cd from ComposedDocument cd where cd.owner.username = ?1")

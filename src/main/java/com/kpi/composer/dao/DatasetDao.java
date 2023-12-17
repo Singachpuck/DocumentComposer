@@ -1,10 +1,12 @@
 package com.kpi.composer.dao;
 
 import com.kpi.composer.model.entities.Dataset;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
 
+@Transactional
 public interface DatasetDao {
 
     Collection<Dataset> findAll();
