@@ -29,7 +29,7 @@ public abstract class FileEntity {
     private SupportedFormats format;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
+    @Column
     private byte[] bytes;
 
     @Column
