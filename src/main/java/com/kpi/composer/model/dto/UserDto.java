@@ -1,6 +1,7 @@
 package com.kpi.composer.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kpi.composer.validate.annotation.Password;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -22,13 +23,6 @@ public class UserDto {
     @Email(message = "Email is not correct.")
     private String email;
 
-    /**
-     * TODO:
-     * Min size is 6
-     * Max size is 50
-     * Must contain a digit
-     * Must contain a capital letter
-     * Must contain a small letter
-     */
+    @Password
     private String password;
 }
