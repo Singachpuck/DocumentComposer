@@ -5,11 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PreRemove;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Dataset extends FileEntity {
 
     public static final Set<SupportedFormats> SUPPORTED_FORMATS = Set.of(SupportedFormats.JSON);
